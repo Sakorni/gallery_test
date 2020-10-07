@@ -89,21 +89,21 @@ class SignUpPage extends StatelessWidget {
       ),
       Center(
         child: ActionButton(
-          caption: AppStrings.signIn,
+          caption: AppStrings.signUp,
           backGroundColor: Colors.black,
           textColor: Colors.white,
           onPressed: () {
-            print("Pressed Sign In");
+            print("Pressed SignUp");
           },
         ),
       ),
       Center(
         child: ActionButton(
-          caption: AppStrings.signUp,
+          caption: AppStrings.signIn,
           backGroundColor: Colors.white,
           textColor: Colors.black,
           onPressed: () {
-            print("Pressed SignUp");
+            print("Pressed Sign In");
           },
           outlined: false,
         ),

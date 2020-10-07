@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
-import 'package:gallery_test/app/ui/scene/auth_page/screen/signIn_page.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/screen/signUp_page.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/cancel_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/forgot_lgn_or_pwd.dart';
@@ -17,22 +16,6 @@ final _emailKey = GlobalKey<FormState>();
 final _pwdKey = GlobalKey<FormState>();
 final _emailController = TextEditingController();
 final _passwordController = TextEditingController();
-String emailValidatior(String value) {
-  if (!value.contains('@')) {
-    return "Email should contatin a '@'!";
-  }
-  return null;
-}
-
-String passwordValidator(String value) {
-  if (!value.contains(RegExp(r'[A-Z]|[А-Я]'))) {
-    return "Password should contain at least 1 captial letter!";
-  }
-  if (!(value.length > 7)) {
-    return "Password is too short!";
-  }
-  return null;
-}
 
 class AuthPage extends StatelessWidget {
   final bool signIn;
@@ -70,10 +53,27 @@ class AuthPage extends StatelessWidget {
                 ScreenTitle(
                     text: signIn ? AppStrings.signIn : AppStrings.signUp),
                 SizedBox(height: 47),
-                SignInPage(),
+                signIn ? SignInPage() : SignUpPage(),
               ])),
     );
   }
+}
+
+String emailValidatior(String value) {
+  if (!value.contains('@')) {
+    return "Email should contatin a '@'!";
+  }
+  return null;
+}
+
+String passwordValidator(String value) {
+  if (!value.contains(RegExp(r'[A-Z]|[А-Я]'))) {
+    return "Password should contain at least 1 captial letter!";
+  }
+  if (!(value.length > 7)) {
+    return "Password is too short!";
+  }
+  return null;
 }
 
 class SignInPage extends StatelessWidget {

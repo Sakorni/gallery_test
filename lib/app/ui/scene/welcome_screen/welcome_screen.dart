@@ -10,6 +10,11 @@ import 'package:gallery_test/data/gateway/auth_mode.dart';
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void navigateToAuth(AuthMode mode) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AuthPage(mode)));
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -19,21 +24,13 @@ class WelcomeScreen extends StatelessWidget {
           children: [
             ActionButton(
               caption: AppStrings.createAcc,
-              onPressed: () {
-                print("Click!");
-              },
+              onPressed: () => navigateToAuth(AuthMode.signUp),
               backGroundColor: Colors.black,
               textColor: Colors.white,
             ),
             ActionButton(
               caption: AppStrings.haveAcc,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AuthPage(AuthMode.signIn)),
-                );
-              },
+              onPressed: () => navigateToAuth(AuthMode.signUp),
               backGroundColor: Colors.white,
               textColor: Colors.black,
             )

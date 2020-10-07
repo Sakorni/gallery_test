@@ -14,8 +14,6 @@ final loginNode = FocusNode();
 final passwordNode = FocusNode();
 final _emailKey = GlobalKey<FormState>();
 final _pwdKey = GlobalKey<FormState>();
-final _emailController = TextEditingController();
-final _passwordController = TextEditingController();
 
 class AuthPage extends StatelessWidget {
   final bool signIn;
@@ -77,6 +75,8 @@ String passwordValidator(String value) {
 }
 
 class SignInPage extends StatelessWidget {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     List<GlobalKey<FormState>> keys = [_emailKey, _pwdKey];

@@ -30,7 +30,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
             ActionButton(
               caption: AppStrings.haveAcc,
-              onPressed: () => navigateToAuth(AuthMode.signUp),
+              onPressed: () => navigateToAuth(AuthMode.signIn),
               backGroundColor: Colors.white,
               textColor: Colors.black,
             )

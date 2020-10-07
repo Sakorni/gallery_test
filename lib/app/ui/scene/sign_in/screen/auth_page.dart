@@ -12,16 +12,21 @@ class AuthPage extends StatelessWidget {
         super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: FlatButton(),
-          backgroundColor: Colors.white,
-          elevation: 0,
-          shape: Border(
-            bottom: BorderSide(
-              color: AppColors.appBarShapeColor,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: GestureDetector(
+          excludeFromSemantics: true,
+          onTap: () => Navigator.pop(context),
+          child: Text("Cancel",
+              style: TextStyle(color: Color(0xFF5f5f5f), fontSize: 15),
+              textAlign: TextAlign.justify),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        shape: Border(
+          bottom: BorderSide(
+            color: AppColors.appBarShapeColor,
           ),
         ),
       ),

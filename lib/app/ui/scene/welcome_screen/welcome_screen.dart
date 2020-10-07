@@ -16,7 +16,7 @@ class WelcomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            MyButton(
+            ActionButton(
               caption: AppStrings.createAcc,
               onPressed: () {
                 print("Click!");
@@ -24,7 +24,7 @@ class WelcomeScreen extends StatelessWidget {
               backGroundColor: AppColors.firstColor,
               textColor: AppColors.secondColor,
             ),
-            MyButton(
+            ActionButton(
               caption: AppStrings.haveAcc,
               onPressed: () {
                 Navigator.push(

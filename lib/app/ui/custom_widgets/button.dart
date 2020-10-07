@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class MyButton extends StatelessWidget {
+class ActionButton extends StatelessWidget {
   final String caption;
   final Color backGroundColor;
   final Color textColor;
   final Function() onPressed;
   final bool outlined;
 
-  const MyButton(
+  const ActionButton(
       {Key key,
       @required this.caption,
       this.backGroundColor,

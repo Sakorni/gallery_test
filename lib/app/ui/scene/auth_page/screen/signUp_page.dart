@@ -9,6 +9,10 @@ final _birthDayNode = FocusNode();
 final _emailNode = FocusNode();
 final _oldPwd = FocusNode();
 final _confirmPwd = FocusNode();
+final Key _nameKey = Key("name");
+final Key _emailKey = Key("email");
+final Key _oldPwdKey = Key("oldPwd");
+final Key _confirmPwdKey = Key("confirmPwd");
 
 class SignUpPage extends StatelessWidget {
   final _nameController = TextEditingController();
@@ -16,7 +20,6 @@ class SignUpPage extends StatelessWidget {
   final _emailController = TextEditingController();
   final _oldPwdController = TextEditingController();
   final _confirmPwdController = TextEditingController();
-
   List<FocusNode> nodes = [
     _nameNode,
     _birthDayNode,
@@ -24,50 +27,52 @@ class SignUpPage extends StatelessWidget {
     _oldPwd,
     _confirmPwd
   ];
+  List<Key> validateKey = [_nameKey, _emailKey, _oldPwdKey, _confirmPwdKey];
   void nextNode(int i) => nodes[i + 1].requestFocus();
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       TextInputField(
+          validKey: validateKey[0],
           inputType: TextInputType.name,
           labelText: "Name",
           asset: "assets/person_icon.png",
           action: (_) => nextNode(0),
           controller: _nameController,
-          optional: false,
           focusNode: nodes[0]),
       SizedBox(height: 10),
       TextInputField(
         inputType: TextInputType.datetime,
-        key: Key("Birthday"),
         labelText: "Birthday",
         icon: CupertinoIcons.calendar,
         action: (_) => nextNode(1),
         controller: _birthDayController,
         focusNode: nodes[1],
+        optional: true,
       ),
       SizedBox(height: 10),
       TextInputField(
+          validKey: validateKey[1],
           inputType: TextInputType.emailAddress,
           labelText: "Email",
           icon: CupertinoIcons.mail,
           action: (_) => nextNode(2),
           controller: _emailController,
-          optional: false,
           focusNode: nodes[2]),
       SizedBox(height: 10),
       TextInputField(
+        validKey: validateKey[2],
         inputType: TextInputType.visiblePassword,
         labelText: "OldPassword",
         asset: "assets/eye_icon.png",
         action: (_) => nextNode(3),
         controller: _oldPwdController,
         focusNode: nodes[3],
-        optional: false,
         hidden: true,
       ),
       SizedBox(height: 10),
       TextInputField(
+        validKey: validateKey[3],
         inputType: TextInputType.visiblePassword,
         labelText: "Confirm password",
         asset: "assets/eye_icon.png",
@@ -75,7 +80,6 @@ class SignUpPage extends StatelessWidget {
         controller: _confirmPwdController,
         focusNode: nodes[4],
         lastField: true,
-        optional: false,
         hidden: true,
       ),
       Center(

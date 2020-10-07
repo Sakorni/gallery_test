@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:gallery_test/app/resources/app_colors.dart';
 
 class CancelButton extends StatelessWidget {
   @override
@@ -7,7 +8,7 @@ class CancelButton extends StatelessWidget {
       excludeFromSemantics: true,
       onTap: () => Navigator.pop(context),
       child: Text("Cancel",
-          style: TextStyle(color: Color(0xFF5f5f5f), fontSize: 15),
+          style: TextStyle(color: AppColors.cancelButtonColor, fontSize: 15),
           textAlign: TextAlign.justify),
     );
   }

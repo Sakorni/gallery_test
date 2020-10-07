@@ -66,13 +66,31 @@ class AuthPage extends StatelessWidget {
                 controller: _passwordController,
                 lastField: true,
                 focusNode: passwordNode,
+                hidden: true,
               ),
               ForgotLgnPwd(
                 action: () => print("Forgot!"),
               ),
-              ActionButton(
-                caption: AppStrings.signIn,
-                backGroundColor: Colors.black,
+              Center(
+                child: ActionButton(
+                  caption: AppStrings.signIn,
+                  backGroundColor: Colors.black,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    print("Pressed Sign In");
+                  },
+                ),
+              ),
+              Center(
+                child: ActionButton(
+                  caption: AppStrings.signUp,
+                  backGroundColor: Colors.white,
+                  textColor: Colors.black,
+                  onPressed: () {
+                    print("Pressed SignUp");
+                  },
+                  outlined: false,
+                ),
               )
             ],
           )),

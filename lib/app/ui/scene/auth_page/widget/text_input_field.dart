@@ -8,7 +8,7 @@ class TextInputField extends StatefulWidget {
   final bool optional;
   final bool lastField;
   final bool hidden;
-  final Key validKey;
+  final GlobalKey<FormState> validKey;
   final TextEditingController controller;
   final TextInputType inputType;
   final IconData icon;
@@ -52,9 +52,9 @@ class _TextInputFieldState extends State<TextInputField> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      height: 36,
       child: Form(
-        key: widget.key,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: widget.validKey,
         child: TextFormField(
           keyboardType: widget.inputType,
           focusNode: widget.focusNode,

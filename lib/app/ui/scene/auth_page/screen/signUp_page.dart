@@ -9,10 +9,10 @@ final _birthDayNode = FocusNode();
 final _emailNode = FocusNode();
 final _oldPwd = FocusNode();
 final _confirmPwd = FocusNode();
-final Key _nameKey = Key("name");
-final Key _emailKey = Key("email");
-final Key _oldPwdKey = Key("oldPwd");
-final Key _confirmPwdKey = Key("confirmPwd");
+final Key _nameKey = GlobalKey<FormState>();
+final Key _emailKey = GlobalKey<FormState>();
+final Key _oldPwdKey = GlobalKey<FormState>();
+final Key _confirmPwdKey = GlobalKey<FormState>();
 
 class SignUpPage extends StatelessWidget {
   final _nameController = TextEditingController();
@@ -27,7 +27,12 @@ class SignUpPage extends StatelessWidget {
     _oldPwd,
     _confirmPwd
   ];
-  List<Key> validateKey = [_nameKey, _emailKey, _oldPwdKey, _confirmPwdKey];
+  List<GlobalKey<FormState>> validateKey = [
+    _nameKey,
+    _emailKey,
+    _oldPwdKey,
+    _confirmPwdKey
+  ];
   void nextNode(int i) => nodes[i + 1].requestFocus();
   @override
   Widget build(BuildContext context) {

@@ -36,7 +36,7 @@ class FireAuth {
         throw WeakPassword();
       } else if (e.code == 'email-already-in-use') {
         throw AlreadyRegistred();
-      }
+      } else if (e.code == "invalid-email ") throw InvalidEmail();
     }
     return null;
   }

@@ -1,3 +1,5 @@
+import 'package:gallery_test/data/entity/errors/errors.dart';
+
 class AppStrings {
   static const signIn = "Sign In";
   static const signUp = "Sign Up";
@@ -11,4 +13,5 @@ class AppStrings {
   static const onSocketException =
       "Problems with internet connection. Try again later";
   static const notConfirmed = "Passwords are should be equal!";
+  static const invalidEmail = "Invalid email format!";
 }

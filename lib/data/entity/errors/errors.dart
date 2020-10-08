@@ -28,3 +28,8 @@ class PasswordNotConfirmed implements AuthException {
   @override
   String message = AppStrings.notConfirmed;
 }
+
+class InvalidEmail implements AuthException {
+  @override
+  String message = AppStrings.invalidEmail;
+}

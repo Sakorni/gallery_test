@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
+import 'package:gallery_test/app/resources/text_validators.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/text_input_field.dart';
 
@@ -10,6 +11,7 @@ final _emailNode = FocusNode();
 final _oldPwd = FocusNode();
 final _confirmPwd = FocusNode();
 final Key _nameKey = GlobalKey<FormState>();
+final Key _bDayKey = GlobalKey<FormState>();
 final Key _emailKey = GlobalKey<FormState>();
 final Key _oldPwdKey = GlobalKey<FormState>();
 final Key _confirmPwdKey = GlobalKey<FormState>();
@@ -29,6 +31,7 @@ class SignUpPage extends StatelessWidget {
   ];
   List<GlobalKey<FormState>> validateKey = [
     _nameKey,
+    _bDayKey,
     _emailKey,
     _oldPwdKey,
     _confirmPwdKey
@@ -39,6 +42,7 @@ class SignUpPage extends StatelessWidget {
     return Column(children: [
       TextInputField(
           validKey: validateKey[0],
+          validator: TextValidators.nameValidator,
           inputType: TextInputType.name,
           labelText: "Name",
           asset: "assets/person_icon.png",
@@ -47,8 +51,11 @@ class SignUpPage extends StatelessWidget {
           focusNode: nodes[0]),
       SizedBox(height: 10),
       TextInputField(
+        validKey: validateKey[1],
+        validator: TextValidators.birthDayValidation,
         inputType: TextInputType.datetime,
         labelText: "Birthday",
+        dateTime: true,
         icon: CupertinoIcons.calendar,
         action: (_) => nextNode(1),
         controller: _birthDayController,
@@ -57,7 +64,8 @@ class SignUpPage extends StatelessWidget {
       ),
       SizedBox(height: 10),
       TextInputField(
-          validKey: validateKey[1],
+          validKey: validateKey[2],
+          validator: TextValidators.emailValidatior,
           inputType: TextInputType.emailAddress,
           labelText: "Email",
           icon: CupertinoIcons.mail,
@@ -66,7 +74,8 @@ class SignUpPage extends StatelessWidget {
           focusNode: nodes[2]),
       SizedBox(height: 10),
       TextInputField(
-        validKey: validateKey[2],
+        validKey: validateKey[3],
+        validator: TextValidators.passwordValidator,
         inputType: TextInputType.visiblePassword,
         labelText: "OldPassword",
         asset: "assets/eye_icon.png",
@@ -74,10 +83,12 @@ class SignUpPage extends StatelessWidget {
         controller: _oldPwdController,
         focusNode: nodes[3],
         hidden: true,
+        showOnEyeClick: true,
       ),
       SizedBox(height: 10),
       TextInputField(
-        validKey: validateKey[3],
+        validKey: validateKey[4],
+        validator: TextValidators.passwordValidator,
         inputType: TextInputType.visiblePassword,
         labelText: "Confirm password",
         asset: "assets/eye_icon.png",
@@ -86,6 +97,7 @@ class SignUpPage extends StatelessWidget {
         focusNode: nodes[4],
         lastField: true,
         hidden: true,
+        showOnEyeClick: true,
       ),
       Center(
         child: ActionButton(

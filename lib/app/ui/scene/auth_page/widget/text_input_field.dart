@@ -8,6 +8,8 @@ class TextInputField extends StatefulWidget {
   final bool optional;
   final bool lastField;
   final bool hidden;
+  final bool showOnEyeClick;
+  final bool dateTime;
   final GlobalKey<FormState> validKey;
   final TextEditingController controller;
   final TextInputType inputType;
@@ -26,28 +28,43 @@ class TextInputField extends StatefulWidget {
     this.inputType,
     this.asset,
     this.validator,
+    this.dateTime = false,
     this.lastField = false,
     this.optional = false,
     this.hidden = false,
+    this.showOnEyeClick = false,
   });
 
   @override
-  _TextInputFieldState createState() => _TextInputFieldState(hidden);
+  _TextInputFieldState createState() => _TextInputFieldState();
 }
 
 class _TextInputFieldState extends State<TextInputField> {
   bool isHidden;
-  bool passwordField = false;
+
   void showPwd() {
-    if (passwordField)
+    if (widget.showOnEyeClick)
       setState(() {
         isHidden = !isHidden;
       });
   }
 
-  _TextInputFieldState(this.isHidden) {
-    passwordField = isHidden;
+  void pickTime() async {
+    DateTime date = DateTime.now();
+    FocusScope.of(context).requestFocus(new FocusNode());
+
+    DateTime picked = await showDatePicker(
+        context: context,
+        firstDate: DateTime.utc(date.year - 100),
+        initialDate: date,
+        lastDate: DateTime.utc(date.year + 100));
+    if (picked != null && picked != date) {
+      widget.controller.text =
+          "${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}";
+      setState(() {});
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,6 +74,7 @@ class _TextInputFieldState extends State<TextInputField> {
         key: widget.validKey,
         child: TextFormField(
           keyboardType: widget.inputType,
+          onTap: widget.dateTime ? pickTime : null,
           focusNode: widget.focusNode,
           validator: widget.validator,
           textInputAction:

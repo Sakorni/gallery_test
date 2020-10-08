@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/screen/auth_page.dart';

@@ -21,7 +21,7 @@ class FireAuth {
     return '';
   }
 
-  static Future signUp(
+  static Future<String> signUp(
       {@required String email,
       @required String password,
       @required String name,
@@ -30,6 +30,7 @@ class FireAuth {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       FireStore.addUser(name: name, dayOfBirth: dayOfBirth, email: email);
+      return signIn(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw WeakPassword();
@@ -37,5 +38,6 @@ class FireAuth {
         throw AlreadyRegistred();
       }
     }
+    return null;
   }
 }

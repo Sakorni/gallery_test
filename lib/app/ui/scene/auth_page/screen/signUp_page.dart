@@ -22,14 +22,14 @@ class SignUpPage extends StatelessWidget {
   final _emailController = TextEditingController();
   final _oldPwdController = TextEditingController();
   final _confirmPwdController = TextEditingController();
-  List<FocusNode> nodes = [
+  final List<FocusNode> nodes = [
     _nameNode,
     _birthDayNode,
     _emailNode,
     _oldPwd,
     _confirmPwd
   ];
-  List<GlobalKey<FormState>> validateKey = [
+  final List<GlobalKey<FormState>> validateKey = [
     _nameKey,
     _bDayKey,
     _emailKey,

@@ -2,13 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
-import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/screen/signIn_page.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/screen/signUp_page.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/cancel_button.dart';
-import 'package:gallery_test/app/ui/scene/auth_page/widget/forgot_lgn_or_pwd.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/screen_title.dart';
-import 'package:gallery_test/app/ui/scene/auth_page/widget/text_input_field.dart';
 import 'package:gallery_test/data/gateway/auth_mode.dart';
 
 class AuthPage extends StatelessWidget {

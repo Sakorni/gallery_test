@@ -45,6 +45,18 @@ class SignUpPage extends StatelessWidget {
   ];
 
   SignUpPage({Key key, this.swapScreens, this.signUp}) : super(key: key);
+
+  void _signUp() {
+    if (TextValidators.allValidated(_keys)) {
+      signUp(
+          name: _nameController.text,
+          email: _emailController.text,
+          password: _oldPwdController.text,
+          confirmPassword: _confirmPwdController.text,
+          bDay: _birthDayController.text);
+    }
+  }
+
   void nextNode(int i) => nodes[i + 1].requestFocus();
   @override
   Widget build(BuildContext context) {
@@ -101,7 +113,7 @@ class SignUpPage extends StatelessWidget {
         inputType: TextInputType.visiblePassword,
         labelText: "Confirm password",
         asset: "assets/eye_icon.png",
-        action: (_) => print("Done!"),
+        action: (_) => signUp(),
         controller: _confirmPwdController,
         focusNode: nodes[4],
         lastField: true,
@@ -110,20 +122,10 @@ class SignUpPage extends StatelessWidget {
       ),
       Center(
         child: ActionButton(
-          caption: AppStrings.signUp,
-          backGroundColor: Colors.black,
-          textColor: Colors.white,
-          onPressed: () {
-            if (TextValidators.allValidated(_keys)) {
-              signUp(
-                  name: _nameController.text,
-                  email: _emailController.text,
-                  password: _oldPwdController.text,
-                  confirmPassword: _confirmPwdController.text,
-                  bDay: _birthDayController.text);
-            }
-          },
-        ),
+            caption: AppStrings.signUp,
+            backGroundColor: Colors.black,
+            textColor: Colors.white,
+            onPressed: signUp),
       ),
       Center(
         child: ActionButton(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/screen/auth_page.dart';
 
 import 'package:gallery_test/data/gateway/auth_mode.dart';
@@ -11,7 +13,10 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     void navigateToAuth(AuthMode mode) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AuthPage(mode)));
+          context,
+          MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                  create: (context) => AuthBloc(), child: AuthPage(mode))));
     }
 
     return Scaffold(

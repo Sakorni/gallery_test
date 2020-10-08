@@ -27,11 +27,11 @@ class _FieldsScreenState extends State<FieldsScreen> {
     screens = [
       SignInPage(
         swapScreens: swapScreen,
-        //signIn: widget.bloc.signIn,
+        signIn: widget.bloc.signIn,
       ),
       SignUpPage(
         swapScreens: swapScreen,
-        //signUp: widget.bloc.signUp,
+        signUp: widget.bloc.signUp,
       ),
     ];
     screenIndex = widget.signIn ? 0 : 1;

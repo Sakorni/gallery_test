@@ -19,6 +19,12 @@ class SignInPage extends StatelessWidget {
   final void Function() swapScreens;
 
   SignInPage({Key key, this.signIn, this.swapScreens}) : super(key: key);
+  void _signIn() {
+    if (TextValidators.allValidated(keys)) {
+      signIn(email: _emailController.text, password: _passwordController.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -39,7 +45,7 @@ class SignInPage extends StatelessWidget {
         inputType: TextInputType.visiblePassword,
         labelText: "Password",
         asset: "assets/eye_icon.png",
-        action: (_) => print("Done!"),
+        action: (_) => _signIn(),
         controller: _passwordController,
         lastField: true,
         focusNode: passwordNode,
@@ -50,17 +56,10 @@ class SignInPage extends StatelessWidget {
       ),
       Center(
         child: ActionButton(
-          caption: AppStrings.signIn,
-          backGroundColor: Colors.black,
-          textColor: Colors.white,
-          onPressed: () {
-            if (TextValidators.allValidated(keys)) {
-              signIn(
-                  email: _emailController.text,
-                  password: _passwordController.text);
-            }
-          },
-        ),
+            caption: AppStrings.signIn,
+            backGroundColor: Colors.black,
+            textColor: Colors.white,
+            onPressed: _signIn),
       ),
       Center(
         child: ActionButton(

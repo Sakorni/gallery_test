@@ -23,17 +23,17 @@ class _SplashScreenState extends State<SplashScreen>
 
   initState() {
     super.initState();
-    controller =
-        AnimationController(duration: widget.fadeDuration, vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+    controller = AnimationController(
+        value: 1.0, duration: widget.fadeDuration, vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeOut);
     _animate();
 //this will start the animation
   }
 
   void _animate() async {
-    await controller.forward();
     await Future.delayed(widget.delay);
     await controller.reverse();
+    //await controller.forward();
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (_) => widget.home));
   }
@@ -45,9 +45,8 @@ class _SplashScreenState extends State<SplashScreen>
         child: FadeTransition(
           opacity: animation,
           child: Center(
-              child: LogoPicture(
-            size: 200.0,
-          )),
+              child:
+                  LogoPicture(size: MediaQuery.of(context).size.width * 0.8)),
         ));
   }
 }

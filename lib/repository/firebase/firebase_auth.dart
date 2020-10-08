@@ -27,7 +27,7 @@ class FireAuth {
       @required String name,
       String dayOfBirth}) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       FireStore.addUser(name: name, dayOfBirth: dayOfBirth, email: email);
       return signIn(email: email, password: password);

@@ -1,5 +1,3 @@
-import 'package:gallery_test/data/entity/errors/errors.dart';
-
 class AppStrings {
   static const signIn = "Sign In";
   static const signUp = "Sign Up";

@@ -14,7 +14,6 @@ class LogoPicture extends StatelessWidget {
           image: DecorationImage(
         image: AssetImage(AssetImagePath.logo),
         fit: BoxFit.contain,
-        scale: 2,
       )),
     );
   }

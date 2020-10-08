@@ -1,8 +1,7 @@
-import 'package:animated_splash/animated_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gallery_test/app/resources/asset_images_path.dart';
+
 import 'package:gallery_test/app/ui/scene/splash_screen/splash_screen.dart';
 import 'package:gallery_test/app/ui/scene/welcome_screen/welcome_screen.dart';
 

@@ -7,9 +7,10 @@ class CancelButton extends StatelessWidget {
     return GestureDetector(
       excludeFromSemantics: true,
       onTap: () => Navigator.pop(context),
-      child: Text("Cancel",
-          style: TextStyle(color: AppColors.cancelButtonColor, fontSize: 15),
-          textAlign: TextAlign.justify),
+      child: Text(
+        "Cancel",
+        style: TextStyle(color: AppColors.cancelButtonColor, fontSize: 15),
+      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
+import 'package:gallery_test/app/ui/custom_widgets/logo_picture.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/screen/auth_page.dart';
 
@@ -26,6 +27,14 @@ class WelcomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            LogoPicture(),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                child: Center(
+                  child: Text(AppStrings.welcome,
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                )),
             ActionButton(
               caption: AppStrings.createAcc,
               onPressed: () => navigateToAuth(AuthMode.signUp),

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
-import 'package:gallery_test/app/ui/scene/auth_page/screen/fields_screen.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/widget/fields_screen.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/cancel_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/screen_title.dart';
 import 'package:gallery_test/app/ui/scene/home_page/home_page.dart';

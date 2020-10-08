@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
+import 'package:gallery_test/app/resources/asset_images_path.dart';
 import 'package:gallery_test/app/resources/text_validators.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/forgot_lgn_or_pwd.dart';
@@ -44,7 +45,7 @@ class SignInPage extends StatelessWidget {
         validKey: keys[1],
         inputType: TextInputType.visiblePassword,
         labelText: "Password",
-        asset: "assets/eye_icon.png",
+        asset: AssetImagePath.eyeIcon,
         action: (_) => _signIn(),
         controller: _passwordController,
         lastField: true,

@@ -14,4 +14,5 @@ class AppStrings {
       "Problems with internet connection. Try again later";
   static const notConfirmed = "Passwords are should be equal!";
   static const invalidEmail = "Invalid email format!";
+  static const welcome = "Welcome!";
 }

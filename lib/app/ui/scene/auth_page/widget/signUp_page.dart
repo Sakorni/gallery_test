@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
+import 'package:gallery_test/app/resources/asset_images_path.dart';
 import 'package:gallery_test/app/resources/text_validators.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/text_input_field.dart';
@@ -66,7 +67,7 @@ class SignUpPage extends StatelessWidget {
           validator: TextValidators.nameValidator,
           inputType: TextInputType.name,
           labelText: "Name",
-          asset: "assets/person_icon.png",
+          asset: AssetImagePath.personIcon,
           action: (_) => nextNode(0),
           controller: _nameController,
           focusNode: nodes[0]),
@@ -99,7 +100,7 @@ class SignUpPage extends StatelessWidget {
         validator: TextValidators.passwordValidator,
         inputType: TextInputType.visiblePassword,
         labelText: "OldPassword",
-        asset: "assets/eye_icon.png",
+        asset: AssetImagePath.eyeIcon,
         action: (_) => nextNode(3),
         controller: _oldPwdController,
         focusNode: nodes[3],
@@ -112,7 +113,7 @@ class SignUpPage extends StatelessWidget {
         validator: TextValidators.passwordValidator,
         inputType: TextInputType.visiblePassword,
         labelText: "Confirm password",
-        asset: "assets/eye_icon.png",
+        asset: AssetImagePath.eyeIcon,
         action: (_) => _signUp(),
         controller: _confirmPwdController,
         focusNode: nodes[4],

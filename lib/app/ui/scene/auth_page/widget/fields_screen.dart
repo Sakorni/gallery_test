@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
-import 'package:gallery_test/app/ui/scene/auth_page/screen/signIn_page.dart';
-import 'package:gallery_test/app/ui/scene/auth_page/screen/signUp_page.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/widget/signIn_page.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/widget/signUp_page.dart';
 
 class FieldsScreen extends StatefulWidget {
   final bool signIn;

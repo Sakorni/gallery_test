@@ -23,3 +23,8 @@ class WeakPassword implements AuthException {
   @override
   String message = AppStrings.weakPassword;
 }
+
+class PasswordNotConfirmed implements AuthException {
+  @override
+  String message = AppStrings.notConfirmed;
+}

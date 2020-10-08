@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 class TextValidators {
@@ -37,5 +38,13 @@ class TextValidators {
       return "Name is too short!";
     }
     return null;
+  }
+
+  static bool allValidated(List<GlobalKey<FormState>> keys) {
+    bool valid = true;
+    keys.forEach((element) {
+      valid = (valid && element.currentState.validate());
+    });
+    return valid;
   }
 }

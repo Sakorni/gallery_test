@@ -22,6 +22,13 @@ class SignUpPage extends StatelessWidget {
   final _emailController = TextEditingController();
   final _oldPwdController = TextEditingController();
   final _confirmPwdController = TextEditingController();
+  final void Function() swapScreens;
+  final void Function(
+      {String name,
+      String email,
+      String password,
+      String confirmPassword,
+      String bDay}) signUp;
   final List<FocusNode> nodes = [
     _nameNode,
     _birthDayNode,
@@ -29,19 +36,21 @@ class SignUpPage extends StatelessWidget {
     _oldPwd,
     _confirmPwd
   ];
-  final List<GlobalKey<FormState>> validateKey = [
+  final List<GlobalKey<FormState>> _keys = [
     _nameKey,
     _bDayKey,
     _emailKey,
     _oldPwdKey,
     _confirmPwdKey
   ];
+
+  SignUpPage({Key key, this.swapScreens, this.signUp}) : super(key: key);
   void nextNode(int i) => nodes[i + 1].requestFocus();
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       TextInputField(
-          validKey: validateKey[0],
+          validKey: _keys[0],
           validator: TextValidators.nameValidator,
           inputType: TextInputType.name,
           labelText: "Name",
@@ -51,7 +60,7 @@ class SignUpPage extends StatelessWidget {
           focusNode: nodes[0]),
       SizedBox(height: 10),
       TextInputField(
-        validKey: validateKey[1],
+        validKey: _keys[1],
         validator: TextValidators.birthDayValidation,
         inputType: TextInputType.datetime,
         labelText: "Birthday",
@@ -64,7 +73,7 @@ class SignUpPage extends StatelessWidget {
       ),
       SizedBox(height: 10),
       TextInputField(
-          validKey: validateKey[2],
+          validKey: _keys[2],
           validator: TextValidators.emailValidatior,
           inputType: TextInputType.emailAddress,
           labelText: "Email",
@@ -74,7 +83,7 @@ class SignUpPage extends StatelessWidget {
           focusNode: nodes[2]),
       SizedBox(height: 10),
       TextInputField(
-        validKey: validateKey[3],
+        validKey: _keys[3],
         validator: TextValidators.passwordValidator,
         inputType: TextInputType.visiblePassword,
         labelText: "OldPassword",
@@ -87,7 +96,7 @@ class SignUpPage extends StatelessWidget {
       ),
       SizedBox(height: 10),
       TextInputField(
-        validKey: validateKey[4],
+        validKey: _keys[4],
         validator: TextValidators.passwordValidator,
         inputType: TextInputType.visiblePassword,
         labelText: "Confirm password",
@@ -105,7 +114,14 @@ class SignUpPage extends StatelessWidget {
           backGroundColor: Colors.black,
           textColor: Colors.white,
           onPressed: () {
-            print("Pressed SignUp");
+            if (TextValidators.allValidated(_keys)) {
+              signUp(
+                  name: _nameController.text,
+                  email: _emailController.text,
+                  password: _oldPwdController.text,
+                  confirmPassword: _confirmPwdController.text,
+                  bDay: _birthDayController.text);
+            }
           },
         ),
       ),
@@ -114,9 +130,7 @@ class SignUpPage extends StatelessWidget {
           caption: AppStrings.signIn,
           backGroundColor: Colors.white,
           textColor: Colors.black,
-          onPressed: () {
-            print("Pressed Sign In");
-          },
+          onPressed: swapScreens,
           outlined: false,
         ),
       )

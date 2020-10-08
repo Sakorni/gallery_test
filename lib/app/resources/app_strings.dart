@@ -8,4 +8,7 @@ class AppStrings {
   static const alreadyRegistred = "This user is already registred";
   static const wrongPassword = "Wrong password";
   static const weakPassword = "Password is too weak";
+  static const onSocketException =
+      "Problems with internet connection. Try again later";
+  static const notConfirmed = "Passwords are should be equal!";
 }

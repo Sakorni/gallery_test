@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/data/entity/errors/errors.dart';
 import 'package:gallery_test/repository/firebase/firebase_auth.dart';
 import 'package:meta/meta.dart';
@@ -24,6 +25,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthSuccess(userId);
       }
       if (event is SignUp) {
+        if (event.password != event.confirmPassword) {
+          throw PasswordNotConfirmed();
+        }
         String userId = await FireAuth.signUp(
             email: event.email,
             password: event.password,
@@ -34,7 +38,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } on AuthException catch (e) {
       yield AuthError(e.message);
     } on SocketException {
-      yield AuthError("Problems with internet connection. Try again later");
+      yield AuthError(AppStrings.onSocketException);
     }
+  }
+
+  void signUp(
+      {String name,
+      String email,
+      String password,
+      String confirmPassword,
+      String bDay}) {
+    this.add(SignUp(
+        name: name,
+        email: email,
+        password: password,
+        bDayDate: bDay,
+        confirmPassword: confirmPassword));
+  }
+
+  void signIn({String email, String password}) {
+    this.add(SignIn(email: email, password: password));
   }
 }

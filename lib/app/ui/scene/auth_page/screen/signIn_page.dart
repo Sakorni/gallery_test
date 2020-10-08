@@ -14,9 +14,13 @@ final _pwdKey = GlobalKey<FormState>();
 class SignInPage extends StatelessWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final List<GlobalKey<FormState>> keys = [_emailKey, _pwdKey];
+  final void Function({String email, String password}) signIn;
+  final void Function() swapScreens;
+
+  SignInPage({Key key, this.signIn, this.swapScreens}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    List<GlobalKey<FormState>> keys = [_emailKey, _pwdKey];
     return Column(children: [
       TextInputField(
         validator: TextValidators.emailValidatior,
@@ -50,7 +54,11 @@ class SignInPage extends StatelessWidget {
           backGroundColor: Colors.black,
           textColor: Colors.white,
           onPressed: () {
-            print("Pressed Sign In");
+            if (TextValidators.allValidated(keys)) {
+              signIn(
+                  email: _emailController.text,
+                  password: _passwordController.text);
+            }
           },
         ),
       ),
@@ -59,9 +67,7 @@ class SignInPage extends StatelessWidget {
           caption: AppStrings.signUp,
           backGroundColor: Colors.white,
           textColor: Colors.black,
-          onPressed: () {
-            print(keys[0].currentState.validate());
-          },
+          onPressed: swapScreens,
           outlined: false,
         ),
       )

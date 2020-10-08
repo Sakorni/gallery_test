@@ -77,6 +77,7 @@ class _TextInputFieldState extends State<TextInputField> {
       setState(() {
         pickedDate = true;
       });
+      widget.action("");
     }
   }
 

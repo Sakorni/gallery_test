@@ -113,8 +113,8 @@ class _TextInputFieldState extends State<TextInputField> {
           textAlign: TextAlign.justify,
           obscureText: isHidden,
           decoration: InputDecoration(
-              labelText: widget.labelText,
-              suffixText: widget.optional ? "" : "*", // TODO: Разобраться с ним
+              labelText: widget.labelText +
+                  (widget.optional ? "" : "*"), // TODO: Разобраться с ним
               suffixStyle: TextStyle(color: Colors.red),
               contentPadding: EdgeInsets.all(8),
               suffixIcon: GestureDetector(

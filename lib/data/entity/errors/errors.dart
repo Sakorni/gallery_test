@@ -1,7 +1,25 @@
-class NoSuchUser implements Exception {}
+import 'package:gallery_test/app/resources/app_strings.dart';
 
-class AlreadyRegistred implements Exception {}
+abstract class AuthException implements Exception {
+  String message;
+}
 
-class WrongPassword implements Exception {}
+class NoSuchUser implements AuthException {
+  @override
+  String message = AppStrings.noSuchUser;
+}
 
-class WeakPassword implements Exception {}
+class AlreadyRegistred implements AuthException {
+  @override
+  String message = AppStrings.alreadyRegistred;
+}
+
+class WrongPassword implements AuthException {
+  @override
+  String message = AppStrings.wrongPassword;
+}
+
+class WeakPassword implements AuthException {
+  @override
+  String message = AppStrings.weakPassword;
+}

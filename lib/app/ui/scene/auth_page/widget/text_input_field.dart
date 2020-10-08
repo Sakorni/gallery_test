@@ -41,6 +41,19 @@ class TextInputField extends StatefulWidget {
 
 class _TextInputFieldState extends State<TextInputField> {
   bool isHidden;
+  bool shouldCallDateTimePicker;
+  bool pickedDate = true;
+  DateTime date = DateTime.now();
+  bool shouldPickDate() {
+    if (widget.dateTime) {
+      if (widget.focusNode.hasFocus) {
+        if (shouldCallDateTimePicker || pickedDate) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 
   void showPwd() {
     if (widget.showOnEyeClick)
@@ -49,25 +62,34 @@ class _TextInputFieldState extends State<TextInputField> {
       });
   }
 
-  void pickTime() async {
-    DateTime date = DateTime.now();
+  Future<void> pickTime() async {
+    shouldCallDateTimePicker = false;
     FocusScope.of(context).requestFocus(new FocusNode());
-
     DateTime picked = await showDatePicker(
         context: context,
         firstDate: DateTime.utc(date.year - 100),
         initialDate: date,
         lastDate: DateTime.utc(date.year + 100));
     if (picked != null && picked != date) {
+      date = picked;
       widget.controller.text =
           "${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}";
-      setState(() {});
+      setState(() {
+        pickedDate = true;
+      });
     }
   }
 
   @override
   void initState() {
+    shouldCallDateTimePicker = widget.dateTime;
     isHidden = widget.hidden;
+    widget.focusNode.addListener(() async {
+      if (shouldPickDate()) {
+        await pickTime();
+        shouldCallDateTimePicker = true;
+      }
+    });
     super.initState();
   }
 
@@ -82,6 +104,7 @@ class _TextInputFieldState extends State<TextInputField> {
           keyboardType: widget.inputType,
           onTap: widget.dateTime ? pickTime : null,
           focusNode: widget.focusNode,
+          readOnly: widget.dateTime,
           validator: widget.validator,
           textInputAction:
               widget.lastField ? TextInputAction.done : TextInputAction.go,

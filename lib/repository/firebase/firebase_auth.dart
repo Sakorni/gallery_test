@@ -10,7 +10,7 @@ class FireAuth {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      return userCredential.user.getIdToken();
+      return userCredential.user.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw NoSuchUser();

@@ -113,7 +113,7 @@ class SignUpPage extends StatelessWidget {
         inputType: TextInputType.visiblePassword,
         labelText: "Confirm password",
         asset: "assets/eye_icon.png",
-        action: (_) => signUp(),
+        action: (_) => _signUp(),
         controller: _confirmPwdController,
         focusNode: nodes[4],
         lastField: true,
@@ -125,7 +125,7 @@ class SignUpPage extends StatelessWidget {
             caption: AppStrings.signUp,
             backGroundColor: Colors.black,
             textColor: Colors.white,
-            onPressed: signUp),
+            onPressed: _signUp),
       ),
       Center(
         child: ActionButton(

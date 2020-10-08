@@ -27,7 +27,7 @@ class TextValidators {
     String datePattern = "dd-MM-yyyy";
     DateTime bDay = DateFormat(datePattern).parse(value);
     DateTime adult = DateTime(bDay.year + 18, bDay.month, bDay.day);
-    if (adult.isBefore(DateTime.now())) {
+    if (adult.isAfter(DateTime.now())) {
       return "You should be at least 18 years old!";
     }
     return null;

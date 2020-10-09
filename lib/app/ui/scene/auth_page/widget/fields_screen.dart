@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/widget/screen_title.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/signIn_page.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/signUp_page.dart';
 
@@ -19,6 +21,7 @@ class _FieldsScreenState extends State<FieldsScreen> {
   }
 
   List<Widget> screens = [];
+  final List<String> titles = const [AppStrings.signIn, AppStrings.signUp];
 
   int screenIndex = 0;
 
@@ -40,6 +43,12 @@ class _FieldsScreenState extends State<FieldsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return screens[screenIndex];
+    return Column(children: [
+      ScreenTitle(
+        text: titles[screenIndex],
+      ),
+      SizedBox(height: 47),
+      screens[screenIndex]
+    ]);
   }
 }

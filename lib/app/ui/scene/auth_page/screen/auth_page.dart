@@ -60,9 +60,6 @@ class AuthPage extends StatelessWidget {
                   SizedBox(
                     height: 100,
                   ),
-                  ScreenTitle(
-                      text: signIn ? AppStrings.signIn : AppStrings.signUp),
-                  SizedBox(height: 47),
                   FieldsScreen(
                     key: Key('FieldsScreen'),
                     signIn: signIn,

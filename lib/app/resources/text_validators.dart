@@ -1,6 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:gallery_test/app/resources/app_strings.dart';
-import 'package:intl/intl.dart';
 
 class TextValidators {
   static String emailValidatior(String value) {

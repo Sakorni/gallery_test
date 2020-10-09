@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gallery_test/app/ui/custom_widgets/logo_picture.dart';
 
+/// TODO
+/// убрать, оставить ток натив
+/// с натива пофиксить размер картинки
 class SplashScreen extends StatefulWidget {
   final Widget home;
   final Duration fadeDuration;

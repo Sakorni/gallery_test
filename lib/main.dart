@@ -12,6 +12,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    /// TODO ???
+    /// всё что ниже лучше в мэйн
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     Firebase.initializeApp();
     return MaterialApp(

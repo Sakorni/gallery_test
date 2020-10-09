@@ -20,6 +20,9 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: close_sinks
+    /// TODO ???
+    /// а я тебе говорил не делать этого в билд методе
+    /// didChangeDependencies
     AuthBloc bloc = BlocProvider.of(context);
     return GestureDetector(
       onTap: () {

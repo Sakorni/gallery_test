@@ -18,6 +18,9 @@ class FireAuth {
         throw WrongPassword();
       }
     }
+    /// TODO ???
+    /// лучше эксепшн на ошибки не от firebase
+    /// ниже аналогично
     return '';
   }
 
@@ -30,6 +33,8 @@ class FireAuth {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       FireStore.addUser(name: name, dayOfBirth: dayOfBirth, email: email);
+      /// TODO ???
+      /// ты сделал двойную работу
       return signIn(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

@@ -47,7 +47,6 @@ class _TextInputFieldState extends State<TextInputField> {
     widget.action('');
   }
 
-  DateTime date = DateTime.now();
   void showPwd() {
     if (widget.showOnEyeClick)
       setState(() {
@@ -78,6 +77,7 @@ class _TextInputFieldState extends State<TextInputField> {
           controller: widget.controller,
           textAlign: TextAlign.justify,
           obscureText: isHidden,
+          /// TODO дизайн смотри пожлауйста
           decoration: InputDecoration(
               labelText: widget.labelText +
                   (widget.optional ? "" : "*"), // TODO: Разобраться с ним

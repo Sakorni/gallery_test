@@ -66,6 +66,7 @@ class SignUpPage extends StatelessWidget {
           validKey: _keys[0],
           validator: TextValidators.nameValidator,
           inputType: TextInputType.name,
+          /// TODO вынеси в app_strings все строковые
           labelText: "Name",
           asset: AssetImagePath.personIcon,
           action: (_) => nextNode(0),
@@ -78,6 +79,7 @@ class SignUpPage extends StatelessWidget {
         inputType: TextInputType.datetime,
         labelText: "Birthday",
         dateTime: true,
+        /// TODO смотри дизайн
         icon: CupertinoIcons.calendar,
         action: (_) => nextNode(1),
         controller: _birthDayController,
@@ -90,6 +92,7 @@ class SignUpPage extends StatelessWidget {
           validator: TextValidators.emailValidatior,
           inputType: TextInputType.emailAddress,
           labelText: "Email",
+          /// TODO смотри дизайн
           icon: CupertinoIcons.mail,
           action: (_) => nextNode(2),
           controller: _emailController,

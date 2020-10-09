@@ -5,6 +5,10 @@ import 'package:gallery_test/app/ui/scene/auth_page/widget/screen_title.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/signIn_page.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/signUp_page.dart';
 
+/// TODO ???
+/// ну это вообще не годится
+/// дебажить это будет нереально
+/// а если у тебя потом
 class FieldsScreen extends StatefulWidget {
   final bool signIn;
   final AuthBloc bloc;

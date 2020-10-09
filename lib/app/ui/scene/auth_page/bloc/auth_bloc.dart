@@ -25,6 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthSuccess(userId);
       }
       if (event is SignUp) {
+        /// TODO ???
+        /// валидации тут не место
         if (event.password != event.confirmPassword) {
           throw PasswordNotConfirmed();
         }
@@ -42,6 +44,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  /// TODO ???
+  /// у тебя для этого есть ивенты, функции
   void signUp(
       {String name,
       String email,

@@ -34,6 +34,7 @@ class SignInPage extends StatelessWidget {
         validKey: keys[0],
         inputType: TextInputType.emailAddress,
         labelText: "Email",
+        /// TODO смотри дизайн
         icon: CupertinoIcons.mail,
         action: (_) => passwordNode.requestFocus(),
         controller: _emailController,

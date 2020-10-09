@@ -1,5 +1,8 @@
 import 'package:gallery_test/app/resources/app_strings.dart';
 
+/// TODO ???
+/// эта папка предназначена для моделей
+/// эксепшены это utils
 abstract class AuthException implements Exception {
   String message;
 }

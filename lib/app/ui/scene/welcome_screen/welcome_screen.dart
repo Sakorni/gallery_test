@@ -14,10 +14,13 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     void navigateToAuth(AuthMode mode) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                  create: (context) => AuthBloc(), child: AuthPage(mode))));
+        context,
+        MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => AuthBloc(),
+                  child: AuthPage(mode),
+                )),
+      );
     }
 
     return Scaffold(
@@ -29,12 +32,14 @@ class WelcomeScreen extends StatelessWidget {
           children: [
             LogoPicture(),
             Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: Center(
-                  child: Text(AppStrings.welcome,
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-                )),
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: Center(
+                child: Text(
+                  AppStrings.welcome,
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
             ActionButton(
               caption: AppStrings.createAcc,
               onPressed: () => navigateToAuth(AuthMode.signUp),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/widget/date_formatter.dart';
 
 class TextInputField extends StatefulWidget {
   final String labelText;
@@ -41,6 +42,11 @@ class TextInputField extends StatefulWidget {
 
 class _TextInputFieldState extends State<TextInputField> {
   bool isHidden;
+  _action(String text) {
+    widget.validKey.currentState.validate();
+    widget.action('');
+  }
+
   bool shouldCallDateTimePicker;
   bool pickedDate = true;
   DateTime date = DateTime.now();
@@ -62,24 +68,24 @@ class _TextInputFieldState extends State<TextInputField> {
       });
   }
 
-  Future<void> pickTime() async {
-    shouldCallDateTimePicker = false;
-    FocusScope.of(context).requestFocus(new FocusNode());
-    DateTime picked = await showDatePicker(
-        context: context,
-        firstDate: DateTime.utc(date.year - 100),
-        initialDate: date,
-        lastDate: DateTime.utc(date.year + 100));
-    if (picked != null && picked != date) {
-      date = picked;
-      widget.controller.text =
-          "${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}";
-      setState(() {
-        pickedDate = true;
-      });
-      widget.action("");
-    }
-  }
+  // Future<void> pickTime() async {
+  //   shouldCallDateTimePicker = false;
+  //   FocusScope.of(context).requestFocus(new FocusNode());
+  //   DateTime picked = await showDatePicker(
+  //       context: context,
+  //       firstDate: DateTime.utc(date.year - 100),
+  //       initialDate: date,
+  //       lastDate: DateTime.utc(date.year + 100));
+  //   if (picked != null && picked != date) {
+  //     date = picked;
+  //     widget.controller.text =
+  //         "${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}";
+  //     setState(() {
+  //       pickedDate = true;
+  //     });
+  //     widget.action("");
+  //   }
+  // }
 
   @override
   void initState() {
@@ -87,7 +93,7 @@ class _TextInputFieldState extends State<TextInputField> {
     isHidden = widget.hidden;
     widget.focusNode.addListener(() async {
       if (shouldPickDate()) {
-        await pickTime();
+        // await pickTime();
         shouldCallDateTimePicker = true;
       }
     });
@@ -99,17 +105,16 @@ class _TextInputFieldState extends State<TextInputField> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Form(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
         key: widget.validKey,
         child: TextFormField(
+          inputFormatters: widget.dateTime ? [DateFormatter()] : [],
           keyboardType: widget.inputType,
-          onTap: widget.dateTime ? pickTime : null,
+          // onTap: widget.dateTime ? pickTime : null,
           focusNode: widget.focusNode,
-          readOnly: widget.dateTime,
           validator: widget.validator,
           textInputAction:
               widget.lastField ? TextInputAction.done : TextInputAction.go,
-          onFieldSubmitted: widget.action,
+          onFieldSubmitted: _action,
           controller: widget.controller,
           textAlign: TextAlign.justify,
           obscureText: isHidden,

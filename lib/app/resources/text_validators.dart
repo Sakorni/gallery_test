@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:intl/intl.dart';
 
 class TextValidators {
@@ -19,17 +20,33 @@ class TextValidators {
     return null;
   }
 
+  static DateTime _adultDateTimeFromString(String value) {
+    RegExp regex = RegExp(r"(\d{2})-(\d{2})-(\d{4})");
+    Match match = regex.firstMatch(value);
+    int day = int.parse(match.group(1));
+    int month = int.parse(match.group(2));
+    int year = int.parse(match.group(3));
+    DateTime adult = DateTime(year + 18, month, day);
+    if (adult.day == day && adult.month == month && adult.year == year + 18) {
+      return adult;
+    }
+    throw FormatException();
+  }
+
   static String birthDayValidation(String value) {
     if (value.isEmpty) //Т.к. поле опционально сам по себе.
     {
       return null;
     }
-    String datePattern = "dd-MM-yyyy";
-    DateTime bDay = DateFormat(datePattern).parse(value);
-    DateTime adult = DateTime(bDay.year + 18, bDay.month, bDay.day);
-    if (adult.isAfter(DateTime.now())) {
-      return "You should be at least 18 years old!";
+    try {
+      DateTime adult = _adultDateTimeFromString(value);
+      if (adult.isAfter(DateTime.now())) {
+        return "You should be at least 18 years old!";
+      }
+    } on FormatException {
+      return "Incorrect date value!";
     }
+
     return null;
   }
 

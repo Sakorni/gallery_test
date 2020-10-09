@@ -13,4 +13,5 @@ class AppStrings {
   static const notConfirmed = "Passwords are should be equal!";
   static const invalidEmail = "Invalid email format!";
   static const welcome = "Welcome!";
+  static const separator = '-';
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
-import 'package:gallery_test/app/ui/scene/auth_page/widget/screen_title.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/signIn_page.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/signUp_page.dart';
 
@@ -32,11 +30,9 @@ class _FieldsScreenState extends State<FieldsScreen> {
     screens = [
       SignInPage(
         swapScreens: swapScreen,
-        signIn: widget.bloc.signIn,
       ),
       SignUpPage(
         swapScreens: swapScreen,
-        signUp: widget.bloc.signUp,
       ),
     ];
     screenIndex = widget.signIn ? 0 : 1;

@@ -13,14 +13,14 @@ class SignIn extends AuthEvent {
 class SignUp extends AuthEvent {
   final String name;
   final String email;
-  final String password;
+  final String oldPassword;
   final String confirmPassword;
   final String bDayDate;
 
   SignUp(
       {@required this.name,
       @required this.email,
-      @required this.password,
+      @required this.oldPassword,
       @required this.bDayDate,
       @required this.confirmPassword});
 }

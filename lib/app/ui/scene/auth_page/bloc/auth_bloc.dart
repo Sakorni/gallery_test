@@ -25,14 +25,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthSuccess(userId);
       }
       if (event is SignUp) {
-        /// TODO ???
-        /// валидации тут не место
-        if (event.password != event.confirmPassword) {
-          throw PasswordNotConfirmed();
-        }
         String userId = await FireAuth.signUp(
             email: event.email,
-            password: event.password,
+            oldPassword: event.oldPassword,
+            confrimPassword: event.confirmPassword,
             name: event.name,
             dayOfBirth: event.bDayDate);
         yield AuthSuccess(userId);
@@ -42,25 +38,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } on SocketException {
       yield AuthError(AppStrings.onSocketException);
     }
-  }
-
-  /// TODO ???
-  /// у тебя для этого есть ивенты, функции
-  void signUp(
-      {String name,
-      String email,
-      String password,
-      String confirmPassword,
-      String bDay}) {
-    this.add(SignUp(
-        name: name,
-        email: email,
-        password: password,
-        bDayDate: bDay,
-        confirmPassword: confirmPassword));
-  }
-
-  void signIn({String email, String password}) {
-    this.add(SignIn(email: email, password: password));
   }
 }

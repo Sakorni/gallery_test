@@ -27,12 +27,14 @@ class FireAuth {
 
   static Future<String> signUp(
       {@required String email,
-      @required String password,
+      @required String oldPassword,
       @required String name,
+      @required String confrimPassword,
       String dayOfBirth}) async {
+    if (oldPassword != confrimPassword) throw PasswordNotConfirmed();
     try {
       UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email: email, password: oldPassword);
       FireStore.addUser(name: name, dayOfBirth: dayOfBirth ?? '', email: email);
 
       return userCredential.user.uid;

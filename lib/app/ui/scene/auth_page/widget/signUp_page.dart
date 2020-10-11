@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
-import 'package:gallery_test/app/resources/asset_images_path.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/utils/text_validators.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/screen_title.dart';
@@ -25,12 +26,7 @@ class SignUpPage extends StatelessWidget {
   final _oldPwdController = TextEditingController();
   final _confirmPwdController = TextEditingController();
   final void Function() swapScreens;
-  final void Function(
-      {String name,
-      String email,
-      String password,
-      String confirmPassword,
-      String bDay}) signUp;
+
   final List<FocusNode> nodes = [
     _nameNode,
     _birthDayNode,
@@ -46,20 +42,22 @@ class SignUpPage extends StatelessWidget {
     _confirmPwdKey
   ];
 
-  SignUpPage({Key key, this.swapScreens, this.signUp}) : super(key: key);
-
-  void _signUp() {
+  void _signUp(BuildContext context) {
     if (TextValidators.allValidated(_keys)) {
-      signUp(
+      BlocProvider.of<AuthBloc>(context).add(SignUp(
           name: _nameController.text,
           email: _emailController.text,
-          password: _oldPwdController.text,
+          oldPassword: _oldPwdController.text,
           confirmPassword: _confirmPwdController.text,
-          bDay: _birthDayController.text);
+          bDayDate: _birthDayController.text));
     }
   }
 
   void nextNode(int i) => nodes[i + 1].requestFocus();
+
+  SignUpPage({
+    this.swapScreens,
+  });
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -100,7 +98,7 @@ class SignUpPage extends StatelessWidget {
       TextInputField.passwordField(
         validKey: _keys[4],
         labelText: AppStrings.confirmPassHint,
-        action: (_) => _signUp(),
+        action: (_) => _signUp(context),
         focusNode: nodes[4],
         controller: _confirmPwdController,
         lastField: true,
@@ -110,7 +108,7 @@ class SignUpPage extends StatelessWidget {
             caption: AppStrings.signUp,
             backGroundColor: Colors.black,
             textColor: Colors.white,
-            onPressed: _signUp),
+            onPressed: () => _signUp(context)),
       ),
       Center(
         child: ActionButton(

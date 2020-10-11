@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/utils/text_validators.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/forgot_lgn_or_pwd.dart';
@@ -15,17 +17,17 @@ final _pwdKey = GlobalKey<FormState>();
 class SignInPage extends StatelessWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final List<GlobalKey<FormState>> keys = [_emailKey, _pwdKey];
-  final void Function({String email, String password}) signIn;
+  final List<GlobalKey<FormState>> _keys = [_emailKey, _pwdKey];
   final void Function() swapScreens;
 
-  SignInPage({Key key, this.signIn, this.swapScreens}) : super(key: key);
-  void _signIn() {
-    if (TextValidators.allValidated(keys)) {
-      signIn(email: _emailController.text, password: _passwordController.text);
+  void _signIn(BuildContext context) {
+    if (TextValidators.allValidated(_keys)) {
+      BlocProvider.of<AuthBloc>(context).add(SignIn(
+          email: _emailController.text, password: _passwordController.text));
     }
   }
 
+  SignInPage({Key key, this.swapScreens}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -34,16 +36,16 @@ class SignInPage extends StatelessWidget {
       ),
       SizedBox(height: 47),
       TextInputField.emailField(
-        validKey: keys[0],
+        validKey: _keys[0],
         action: (_) => passwordNode.requestFocus(),
         focusNode: loginNode,
         controller: _emailController,
       ),
       SizedBox(height: 10),
       TextInputField.passwordField(
-        validKey: keys[1],
+        validKey: _keys[1],
         labelText: AppStrings.passwordHint,
-        action: (_) => _signIn(),
+        action: (_) => _signIn(context),
         lastField: true,
         focusNode: passwordNode,
         controller: _passwordController,
@@ -56,7 +58,7 @@ class SignInPage extends StatelessWidget {
             caption: AppStrings.signIn,
             backGroundColor: Colors.black,
             textColor: Colors.white,
-            onPressed: _signIn),
+            onPressed: () => _signIn(context)),
       ),
       Center(
         child: ActionButton(

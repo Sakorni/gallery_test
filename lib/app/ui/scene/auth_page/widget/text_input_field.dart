@@ -9,12 +9,10 @@ class TextInputField extends StatefulWidget {
   final bool optional;
   final bool lastField;
   final bool hidden;
-  final bool showOnEyeClick;
   final bool dateTime;
   final GlobalKey<FormState> validKey;
   final TextEditingController controller;
   final TextInputType inputType;
-  final IconData icon;
   final FocusNode focusNode;
   final String Function(String) validator;
   final void Function(String) action;
@@ -24,7 +22,6 @@ class TextInputField extends StatefulWidget {
     this.controller,
     this.action,
     this.focusNode,
-    this.icon,
     this.labelText,
     this.inputType,
     this.asset,
@@ -33,7 +30,6 @@ class TextInputField extends StatefulWidget {
     this.lastField = false,
     this.optional = false,
     this.hidden = false,
-    this.showOnEyeClick = false,
   });
 
   @override
@@ -48,7 +44,7 @@ class _TextInputFieldState extends State<TextInputField> {
   }
 
   void showPwd() {
-    if (widget.showOnEyeClick)
+    if (widget.hidden)
       setState(() {
         isHidden = !isHidden;
       });
@@ -77,6 +73,7 @@ class _TextInputFieldState extends State<TextInputField> {
           controller: widget.controller,
           textAlign: TextAlign.justify,
           obscureText: isHidden,
+
           /// TODO дизайн смотри пожлауйста
           decoration: InputDecoration(
               labelText: widget.labelText +
@@ -86,18 +83,15 @@ class _TextInputFieldState extends State<TextInputField> {
               suffixIcon: GestureDetector(
                 excludeFromSemantics: true,
                 onTap: showPwd,
-                child: widget.icon != null
-                    ? Icon(
-                        widget.icon,
-                        color: AppColors.appBarShapeColor,
-                        size: 30,
-                      )
-                    : Image.asset(
-                        widget.asset,
-                        color: AppColors.appBarShapeColor,
-                        width: 30,
-                        height: 30,
-                      ),
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: Image.asset(
+                    widget.asset,
+                    color: AppColors.appBarShapeColor,
+                    width: 22,
+                    height: 22,
+                  ),
+                ),
               ),
               border: OutlineInputBorder(borderSide: BorderSide())),
         ),

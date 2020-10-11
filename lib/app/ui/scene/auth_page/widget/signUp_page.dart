@@ -83,9 +83,7 @@ class SignUpPage extends StatelessWidget {
         inputType: TextInputType.datetime,
         labelText: AppStrings.bDayHint,
         dateTime: true,
-
-        /// TODO смотри дизайн
-        icon: CupertinoIcons.calendar,
+        asset: AssetImagePath.calendarIcon,
         action: (_) => nextNode(1),
         controller: _birthDayController,
         focusNode: nodes[1],
@@ -97,9 +95,7 @@ class SignUpPage extends StatelessWidget {
           validator: TextValidators.emailValidatior,
           inputType: TextInputType.emailAddress,
           labelText: AppStrings.emailHint,
-
-          /// TODO смотри дизайн
-          icon: CupertinoIcons.mail,
+          asset: AssetImagePath.emailIcon,
           action: (_) => nextNode(2),
           controller: _emailController,
           focusNode: nodes[2]),
@@ -114,7 +110,6 @@ class SignUpPage extends StatelessWidget {
         controller: _oldPwdController,
         focusNode: nodes[3],
         hidden: true,
-        showOnEyeClick: true,
       ),
       SizedBox(height: 10),
       TextInputField(
@@ -128,7 +123,6 @@ class SignUpPage extends StatelessWidget {
         focusNode: nodes[4],
         lastField: true,
         hidden: true,
-        showOnEyeClick: true,
       ),
       Center(
         child: ActionButton(

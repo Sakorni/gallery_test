@@ -19,15 +19,14 @@ class FieldsScreen extends StatefulWidget {
 }
 
 class _FieldsScreenState extends State<FieldsScreen> {
+  int screenIndex = 0;
+  List<Widget> screens = [];
+  final List<String> titles = const [AppStrings.signIn, AppStrings.signUp];
+
   void swapScreen() {
     screenIndex = (screenIndex + 1) % 2;
     setState(() {});
   }
-
-  List<Widget> screens = [];
-  final List<String> titles = const [AppStrings.signIn, AppStrings.signUp];
-
-  int screenIndex = 0;
 
   @override
   void initState() {

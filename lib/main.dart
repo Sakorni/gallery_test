@@ -7,15 +7,13 @@ import 'package:gallery_test/app/ui/scene/welcome_screen/welcome_screen.dart';
 
 void main() {
   runApp(MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    /// TODO ???
-    /// всё что ниже лучше в мэйн
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    Firebase.initializeApp();
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gallery_test/data/entity/errors/errors.dart';
+import 'package:gallery_test/app/utils/errors.dart';
 
 import 'firebase_firestore.dart';
 
@@ -18,6 +18,7 @@ class FireAuth {
         throw WrongPassword();
       }
     }
+
     /// TODO ???
     /// лучше эксепшн на ошибки не от firebase
     /// ниже аналогично
@@ -30,12 +31,11 @@ class FireAuth {
       @required String name,
       String dayOfBirth}) async {
     try {
-      await FirebaseAuth.instance
+      UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       FireStore.addUser(name: name, dayOfBirth: dayOfBirth, email: email);
-      /// TODO ???
-      /// ты сделал двойную работу
-      return signIn(email: email, password: password);
+
+      return userCredential.user.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw WeakPassword();

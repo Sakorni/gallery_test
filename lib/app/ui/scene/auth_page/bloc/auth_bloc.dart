@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
-import 'package:gallery_test/data/entity/errors/errors.dart';
+import 'package:gallery_test/app/utils/errors.dart';
 import 'package:gallery_test/repository/firebase/firebase_auth.dart';
 import 'package:meta/meta.dart';
 

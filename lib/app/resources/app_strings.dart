@@ -13,5 +13,12 @@ class AppStrings {
   static const notConfirmed = "Passwords are should be equal!";
   static const invalidEmail = "Invalid email format!";
   static const welcome = "Welcome!";
-  static const separator = '-';
+  static const separator = '.';
+  static const emailNotValid = "Email should contatin a '@'!";
+  static const passwordNotValid =
+      "Password should contain 1 lower case letter!";
+  static const passwordTooShort = "Password is too short!";
+  static const tooYoung = "You should be at least 18 years old!";
+  static const incorrectDate = "Incorrect date value!";
+  static const emptyName = "Name field is not optional!";
 }

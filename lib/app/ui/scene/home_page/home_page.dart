@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/no_pictures.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/preloader.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/search_field.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/top_nav_bar.dart';
+import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
   final String id;
@@ -47,6 +51,11 @@ class _HomePageState extends State<HomePage> {
           tapHandler: topNavigatorTapHandler,
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        ImagePicker picker = ImagePicker();
+        PickedFile file = await picker.getImage(source: ImageSource.gallery);
+        FireStore.createImg(File(file.path));
+      }),
       body: pages[selectedIndex],
     );
   }

@@ -28,4 +28,6 @@ class AppStrings {
   static const confirmPassHint = "Confirm password";
   static const bDayHint = "Birthday";
   static const seatchHint = "Search";
+  static const photoModeNew = "New";
+  static const photoModePopular = "Popular";
 }

@@ -9,15 +9,9 @@ import 'package:gallery_test/app/ui/scene/home_page/home_page.dart';
 
 class AuthPage extends StatelessWidget {
   final bool signIn;
-
   const AuthPage(this.signIn);
   @override
   Widget build(BuildContext context) {
-    // ignore: close_sinks
-    /// TODO ???
-    /// а я тебе говорил не делать этого в билд методе
-    /// didChangeDependencies
-    AuthBloc bloc = BlocProvider.of(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -34,8 +28,7 @@ class AuthPage extends StatelessWidget {
               ),
             ),
           ),
-          body: BlocListener(
-            cubit: bloc,
+          body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is AuthError) {
                 Scaffold.of(context)
@@ -56,9 +49,7 @@ class AuthPage extends StatelessWidget {
                     height: 100,
                   ),
                   FieldsScreen(
-                    key: Key('FieldsScreen'),
                     signIn: signIn,
-                    bloc: bloc,
                   ),
                 ]),
           )),

@@ -5,6 +5,7 @@ import 'package:gallery_test/app/resources/app_colors.dart';
 class TopBarTextStyles {
   static const TextStyle disabled = TextStyle(
     color: AppColors.mainGray,
+    fontSize: 17,
   );
   static const TextStyle enabled = TextStyle(color: Colors.black);
 }

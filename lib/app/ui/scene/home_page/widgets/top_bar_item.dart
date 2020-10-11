@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gallery_test/app/ui/scene/home_page/resources/top_bar_styles.dart';
+import 'package:gallery_test/app/ui/scene/home_page/resources/home_page_styles.dart';
 
 class TopBarItem extends StatelessWidget {
   final bool enabled;

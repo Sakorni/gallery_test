@@ -130,8 +130,6 @@ class _TextInputFieldState extends State<TextInputField> {
           controller: widget.controller,
           textAlign: TextAlign.justify,
           obscureText: isHidden,
-
-          /// TODO дизайн смотри пожлауйста
           decoration: InputDecoration(
               labelText: widget.labelText +
                   (widget.optional ? "" : "*"), // TODO: Разобраться с ним

@@ -25,7 +25,7 @@ class _TopNavigationBarState extends State<TopNavigationBar> {
     super.initState();
   }
 
-  int _selectIndex(int index) {
+  void _selectIndex(int index) {
     if (index != selectedIndex) {
       setState(() {
         selectedIndex = index;

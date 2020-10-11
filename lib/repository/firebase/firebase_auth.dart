@@ -33,7 +33,7 @@ class FireAuth {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      FireStore.addUser(name: name, dayOfBirth: dayOfBirth, email: email);
+      FireStore.addUser(name: name, dayOfBirth: dayOfBirth ?? '', email: email);
 
       return userCredential.user.uid;
     } on FirebaseAuthException catch (e) {

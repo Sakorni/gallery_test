@@ -37,6 +37,7 @@ class SignInPage extends StatelessWidget {
         validKey: keys[0],
         action: (_) => passwordNode.requestFocus(),
         focusNode: loginNode,
+        controller: _emailController,
       ),
       SizedBox(height: 10),
       TextInputField.passwordField(
@@ -45,6 +46,7 @@ class SignInPage extends StatelessWidget {
         action: (_) => _signIn(),
         lastField: true,
         focusNode: passwordNode,
+        controller: _passwordController,
       ),
       ForgotLgnPwd(
         action: () => print("Forgot!"),

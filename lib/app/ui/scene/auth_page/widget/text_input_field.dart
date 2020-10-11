@@ -14,7 +14,7 @@ class TextInputField extends StatefulWidget {
   final bool hidden;
   final bool dateTime;
   final GlobalKey<FormState> validKey;
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController controller;
   final TextInputType inputType;
   final FocusNode focusNode;
   final String Function(String) validator;
@@ -22,6 +22,7 @@ class TextInputField extends StatefulWidget {
 
   TextInputField({
     this.validKey,
+    this.controller,
     this.action,
     this.focusNode,
     this.labelText,
@@ -37,6 +38,7 @@ class TextInputField extends StatefulWidget {
     @required this.validKey,
     @required this.action,
     @required this.focusNode,
+    @required this.controller,
   })  : validator = TextValidators.nameValidator,
         inputType = TextInputType.name,
         labelText = AppStrings.nameHint,
@@ -49,6 +51,7 @@ class TextInputField extends StatefulWidget {
     @required this.validKey,
     @required this.action,
     @required this.focusNode,
+    @required this.controller,
   })  : validator = TextValidators.birthDayValidation,
         inputType = TextInputType.datetime,
         labelText = AppStrings.bDayHint,
@@ -62,6 +65,7 @@ class TextInputField extends StatefulWidget {
     @required this.validKey,
     @required this.action,
     @required this.focusNode,
+    @required this.controller,
   })  : validator = TextValidators.emailValidatior,
         inputType = TextInputType.emailAddress,
         labelText = AppStrings.emailHint,
@@ -73,8 +77,9 @@ class TextInputField extends StatefulWidget {
 
   TextInputField.passwordField({
     @required this.validKey,
-    @required this.action,
     @required this.focusNode,
+    @required this.controller,
+    @required this.action,
     @required this.labelText,
     @required this.lastField,
   })  : validator = TextValidators.passwordValidator,

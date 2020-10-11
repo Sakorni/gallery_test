@@ -7,18 +7,16 @@ import 'package:gallery_test/app/ui/custom_widgets/logo_picture.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/screen/auth_page.dart';
 
-import 'package:gallery_test/data/gateway/auth_mode.dart';
-
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    void navigateToAuth(AuthMode mode) {
+    void navigateToAuth({bool signIn}) {
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => BlocProvider(
                   create: (context) => AuthBloc(),
-                  child: AuthPage(mode),
+                  child: AuthPage(signIn),
                 )),
       );
     }
@@ -42,13 +40,13 @@ class WelcomeScreen extends StatelessWidget {
             ),
             ActionButton(
               caption: AppStrings.createAcc,
-              onPressed: () => navigateToAuth(AuthMode.signUp),
+              onPressed: () => navigateToAuth(signIn: false),
               backGroundColor: Colors.black,
               textColor: Colors.white,
             ),
             ActionButton(
               caption: AppStrings.haveAcc,
-              onPressed: () => navigateToAuth(AuthMode.signIn),
+              onPressed: () => navigateToAuth(signIn: true),
               backGroundColor: Colors.white,
               textColor: Colors.black,
             )

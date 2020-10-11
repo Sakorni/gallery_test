@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
+import 'package:gallery_test/app/resources/app_strings.dart';
+import 'package:gallery_test/app/resources/asset_images_path.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/bloc/utils/text_validators.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/date_formatter.dart';
 
 class TextInputField extends StatefulWidget {
@@ -11,15 +14,14 @@ class TextInputField extends StatefulWidget {
   final bool hidden;
   final bool dateTime;
   final GlobalKey<FormState> validKey;
-  final TextEditingController controller;
+  final TextEditingController controller = TextEditingController();
   final TextInputType inputType;
   final FocusNode focusNode;
   final String Function(String) validator;
   final void Function(String) action;
 
-  const TextInputField({
+  TextInputField({
     this.validKey,
-    this.controller,
     this.action,
     this.focusNode,
     this.labelText,
@@ -31,6 +33,56 @@ class TextInputField extends StatefulWidget {
     this.optional = false,
     this.hidden = false,
   });
+  TextInputField.nameField({
+    @required this.validKey,
+    @required this.action,
+    @required this.focusNode,
+  })  : validator = TextValidators.nameValidator,
+        inputType = TextInputType.name,
+        labelText = AppStrings.nameHint,
+        optional = false,
+        lastField = false,
+        this.hidden = false,
+        this.dateTime = false,
+        asset = AssetImagePath.personIcon;
+  TextInputField.bDayField({
+    @required this.validKey,
+    @required this.action,
+    @required this.focusNode,
+  })  : validator = TextValidators.birthDayValidation,
+        inputType = TextInputType.datetime,
+        labelText = AppStrings.bDayHint,
+        optional = true,
+        lastField = false,
+        this.hidden = false,
+        this.dateTime = true,
+        asset = AssetImagePath.calendarIcon;
+
+  TextInputField.emailField({
+    @required this.validKey,
+    @required this.action,
+    @required this.focusNode,
+  })  : validator = TextValidators.emailValidatior,
+        inputType = TextInputType.emailAddress,
+        labelText = AppStrings.emailHint,
+        optional = false,
+        lastField = false,
+        this.hidden = false,
+        this.dateTime = false,
+        asset = AssetImagePath.emailIcon;
+
+  TextInputField.passwordField({
+    @required this.validKey,
+    @required this.action,
+    @required this.focusNode,
+    @required this.labelText,
+    @required this.lastField,
+  })  : validator = TextValidators.passwordValidator,
+        inputType = TextInputType.visiblePassword,
+        optional = false,
+        this.hidden = true,
+        this.dateTime = false,
+        asset = AssetImagePath.eyeIcon;
 
   @override
   _TextInputFieldState createState() => _TextInputFieldState();

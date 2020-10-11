@@ -34,28 +34,18 @@ class SignInPage extends StatelessWidget {
         text: AppStrings.signIn,
       ),
       SizedBox(height: 47),
-      TextInputField(
-        validator: TextValidators.emailValidatior,
+      TextInputField.emailField(
         validKey: keys[0],
-        inputType: TextInputType.emailAddress,
-        labelText: AppStrings.emailHint,
-        asset: AssetImagePath.emailIcon,
         action: (_) => passwordNode.requestFocus(),
-        controller: _emailController,
         focusNode: loginNode,
       ),
       SizedBox(height: 10),
-      TextInputField(
-        validator: TextValidators.passwordValidator,
+      TextInputField.passwordField(
         validKey: keys[1],
-        inputType: TextInputType.visiblePassword,
         labelText: AppStrings.passwordHint,
-        asset: AssetImagePath.eyeIcon,
         action: (_) => _signIn(),
-        controller: _passwordController,
         lastField: true,
         focusNode: passwordNode,
-        hidden: true,
       ),
       ForgotLgnPwd(
         action: () => print("Forgot!"),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gallery_test/app/resources/app_colors.dart';
+import 'package:gallery_test/app/ui/scene/home_page/resources/top_bar_styles.dart';
 
 class TopBarItem extends StatelessWidget {
   final bool enabled;
@@ -10,26 +10,13 @@ class TopBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: enabled
-            ? Border(
-                bottom: BorderSide(
-                  width: 2.0,
-                  color: AppColors.underLineColor,
-                ),
-              )
-            : Border(),
-      ),
+      decoration:
+          enabled ? TopBarBoxDecoration.enabled : TopBarBoxDecoration.disabled,
       child: FlatButton(
         onPressed: () => selectIndex(),
-        child: Text(
-          text,
-          style: enabled
-              ? TextStyle(color: Colors.black)
-              : TextStyle(
-                  color: AppColors.mainGray,
-                ),
-        ),
+        child: Text(text,
+            style:
+                enabled ? TopBarTextStyles.enabled : TopBarTextStyles.disabled),
       ),
     );
   }

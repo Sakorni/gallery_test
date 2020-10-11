@@ -1,13 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/search_field.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/top_nav_bar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final String id;
 
   const HomePage({Key key, this.id}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int selectedIndex;
+  List<Widget> pages = [
+    Center(
+      child: Text("1"),
+    ),
+    Center(
+      child: Text("2"),
+    ),
+  ];
+
+  void topNavigatorTapHandler(int index) {
+    if (selectedIndex != index) {
+      setState(() {
+        selectedIndex = index;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    selectedIndex = 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,14 +45,11 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         title: SearchField(),
-        bottom: TopNavigationBar(),
-      ),
-      body: Center(
-        child: Text(
-          id,
-          style: TextStyle(fontSize: 20, color: Colors.green),
+        bottom: TopNavigationBar(
+          tapHandler: topNavigatorTapHandler,
         ),
       ),
+      body: pages[selectedIndex],
     );
   }
 }

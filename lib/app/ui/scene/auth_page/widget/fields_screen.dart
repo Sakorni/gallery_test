@@ -21,7 +21,6 @@ class FieldsScreen extends StatefulWidget {
 class _FieldsScreenState extends State<FieldsScreen> {
   int screenIndex = 0;
   List<Widget> screens = [];
-  final List<String> titles = const [AppStrings.signIn, AppStrings.signUp];
 
   void swapScreen() {
     screenIndex = (screenIndex + 1) % 2;
@@ -46,12 +45,6 @@ class _FieldsScreenState extends State<FieldsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ScreenTitle(
-        text: titles[screenIndex],
-      ),
-      SizedBox(height: 47),
-      screens[screenIndex]
-    ]);
+    return Column(children: [screens[screenIndex]]);
   }
 }

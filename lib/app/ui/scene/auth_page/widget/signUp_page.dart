@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/resources/asset_images_path.dart';
-import 'package:gallery_test/app/resources/text_validators.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/bloc/utils/text_validators.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/widget/screen_title.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/text_input_field.dart';
 
 final _nameNode = FocusNode();
@@ -62,12 +63,15 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      ScreenTitle(
+        text: AppStrings.signUp,
+      ),
+      SizedBox(height: 47),
       TextInputField(
           validKey: _keys[0],
           validator: TextValidators.nameValidator,
           inputType: TextInputType.name,
-          /// TODO вынеси в app_strings все строковые
-          labelText: "Name",
+          labelText: AppStrings.nameHint,
           asset: AssetImagePath.personIcon,
           action: (_) => nextNode(0),
           controller: _nameController,
@@ -77,8 +81,9 @@ class SignUpPage extends StatelessWidget {
         validKey: _keys[1],
         validator: TextValidators.birthDayValidation,
         inputType: TextInputType.datetime,
-        labelText: "Birthday",
+        labelText: AppStrings.bDayHint,
         dateTime: true,
+
         /// TODO смотри дизайн
         icon: CupertinoIcons.calendar,
         action: (_) => nextNode(1),
@@ -91,7 +96,8 @@ class SignUpPage extends StatelessWidget {
           validKey: _keys[2],
           validator: TextValidators.emailValidatior,
           inputType: TextInputType.emailAddress,
-          labelText: "Email",
+          labelText: AppStrings.emailHint,
+
           /// TODO смотри дизайн
           icon: CupertinoIcons.mail,
           action: (_) => nextNode(2),
@@ -102,7 +108,7 @@ class SignUpPage extends StatelessWidget {
         validKey: _keys[3],
         validator: TextValidators.passwordValidator,
         inputType: TextInputType.visiblePassword,
-        labelText: "OldPassword",
+        labelText: AppStrings.oldPassHint,
         asset: AssetImagePath.eyeIcon,
         action: (_) => nextNode(3),
         controller: _oldPwdController,
@@ -115,7 +121,7 @@ class SignUpPage extends StatelessWidget {
         validKey: _keys[4],
         validator: TextValidators.passwordValidator,
         inputType: TextInputType.visiblePassword,
-        labelText: "Confirm password",
+        labelText: AppStrings.confirmPassHint,
         asset: AssetImagePath.eyeIcon,
         action: (_) => _signUp(),
         controller: _confirmPwdController,

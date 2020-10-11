@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/resources/asset_images_path.dart';
-import 'package:gallery_test/app/resources/text_validators.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/bloc/utils/text_validators.dart';
 import 'package:gallery_test/app/ui/custom_widgets/action_button.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/forgot_lgn_or_pwd.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/widget/screen_title.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/text_input_field.dart';
 
 final loginNode = FocusNode();
@@ -29,11 +30,16 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      ScreenTitle(
+        text: AppStrings.signIn,
+      ),
+      SizedBox(height: 47),
       TextInputField(
         validator: TextValidators.emailValidatior,
         validKey: keys[0],
         inputType: TextInputType.emailAddress,
-        labelText: "Email",
+        labelText: AppStrings.emailHint,
+
         /// TODO смотри дизайн
         icon: CupertinoIcons.mail,
         action: (_) => passwordNode.requestFocus(),
@@ -45,7 +51,7 @@ class SignInPage extends StatelessWidget {
         validator: TextValidators.passwordValidator,
         validKey: keys[1],
         inputType: TextInputType.visiblePassword,
-        labelText: "Password",
+        labelText: AppStrings.passwordHint,
         asset: AssetImagePath.eyeIcon,
         action: (_) => _signIn(),
         controller: _passwordController,

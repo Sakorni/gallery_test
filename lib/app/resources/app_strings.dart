@@ -21,4 +21,10 @@ class AppStrings {
   static const tooYoung = "You should be at least 18 years old!";
   static const incorrectDate = "Incorrect date value!";
   static const emptyName = "Name field is not optional!";
+  static const passwordHint = "Password";
+  static const emailHint = "Email";
+  static const nameHint = "Name";
+  static const oldPassHint = "Old password";
+  static const confirmPassHint = "Confirm password";
+  static const bDayHint = "Birthday";
 }

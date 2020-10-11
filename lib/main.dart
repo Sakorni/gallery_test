@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gallery_test/app/ui/scene/home_page/home_page.dart';
 
 import 'package:gallery_test/app/ui/scene/welcome_screen/welcome_screen.dart';
 
@@ -20,6 +21,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: WelcomeScreen());
+        home: HomePage(id: "123")); //WelcomeScreen());
   }
 }

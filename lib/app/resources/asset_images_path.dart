@@ -5,4 +5,6 @@ class AssetImagePath {
   static const String emailIcon = "assets/email_icon.png";
   static const String calendarIcon = "assets/calendar_icon.png";
   static const String noPictures = "assets/no_pictures.png";
+  static const String voiceIcon = "assets/voice_icon.png";
+  static const String searchIcon = "assets/search_icon.png";
 }

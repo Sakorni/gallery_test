@@ -144,7 +144,7 @@ class _TextInputFieldState extends State<TextInputField> {
                   padding: const EdgeInsets.all(7.0),
                   child: Image.asset(
                     widget.asset,
-                    color: AppColors.appBarShapeColor,
+                    color: AppColors.mainGray,
                     width: 22,
                     height: 22,
                   ),

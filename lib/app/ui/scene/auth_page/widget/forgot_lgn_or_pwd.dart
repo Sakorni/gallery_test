@@ -14,7 +14,7 @@ class ForgotLgnPwd extends StatelessWidget {
           onTap: action,
           child: Text(
             AppStrings.forgot,
-            style: TextStyle(fontSize: 13, color: AppColors.appBarShapeColor),
+            style: TextStyle(fontSize: 13, color: AppColors.mainGray),
           ),
         ));
   }

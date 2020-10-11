@@ -24,7 +24,7 @@ class AuthPage extends StatelessWidget {
             elevation: 0,
             shape: Border(
               bottom: BorderSide(
-                color: AppColors.appBarShapeColor,
+                color: AppColors.mainGray,
               ),
             ),
           ),

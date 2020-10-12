@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gallery_test/app/ui/scene/home_page/widgets/no_pictures.dart';
-import 'package:gallery_test/app/ui/scene/home_page/widgets/preloader.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallery_test/app/ui/scene/home_page/bloc/load_mode.dart';
+import 'package:gallery_test/app/ui/scene/home_page/bloc/pictures_bloc.dart';
+import 'package:gallery_test/app/ui/scene/home_page/widgets/list_of_pictures.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/search_field.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/top_nav_bar.dart';
 import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
@@ -21,8 +23,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedIndex;
   List<Widget> pages = [
-    NoPictures(),
-    Preloader(),
+    ListOfPhotoPage<NewLoadMode>(),
+    ListOfPhotoPage<PopularLoadMode>(),
   ];
 
   void topNavigatorTapHandler(int index) {

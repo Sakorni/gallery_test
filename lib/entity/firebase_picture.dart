@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gallery_test/entity/gateway/picture.dart';
 
 class FirebasePicture implements Picture {
@@ -19,7 +20,8 @@ class FirebasePicture implements Picture {
   FirebasePicture.fromData(Map<String, dynamic> data) {
     this._author = data['author'];
     this._countOfViews = data['count_of_views'];
-    this._createdAt = DateTime.parse(data['createdAt']);
+    this._createdAt = DateTime.fromMillisecondsSinceEpoch(
+        (data['createdAt'] as Timestamp).millisecondsSinceEpoch);
     this._name = data['name'];
     this._tags = List.from(data['tags']);
     this._type = data['type'];

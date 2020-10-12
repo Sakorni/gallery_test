@@ -5,6 +5,7 @@ import 'package:gallery_test/entity/firebase_picture.dart';
 import 'package:gallery_test/repository/firebase/firebase_storage.dart';
 
 class FireStore {
+  static final _instance = FirebaseFirestore.instance;
   static const _LOADLIMIT = 10;
   DocumentSnapshot lastDocument;
 
@@ -23,7 +24,7 @@ class FireStore {
   }
 
   Future<QuerySnapshot> _continueLoading(String mode) async {
-    return FirebaseFirestore.instance
+    return _instance
         .collection("images")
         .where('type', isEqualTo: mode)
         .startAfterDocument(lastDocument)
@@ -32,24 +33,31 @@ class FireStore {
   }
 
   Future<QuerySnapshot> _loadFromStart(String mode) async {
-    return await FirebaseFirestore.instance
-        .collection("images")
-        .where('type', isEqualTo: mode)
-        .limit(_LOADLIMIT)
-        .get();
+    var instance = _instance;
+    var collection = instance.collection('images');
+    var where = collection.where('type', isEqualTo: mode);
+    var limited = where.limit(_LOADLIMIT);
+    var geted = await limited.get();
+    return geted;
   }
 
   Future<List<FirebasePicture>> getPictures<Mode extends LoadMode>(
       {bool reset = false}) async {
+    String mode;
+    if (Mode == NewLoadMode) {
+      mode = "New";
+    } else if (Mode == PopularLoadMode) {
+      mode = "Popular";
+    }
     if (reset) {
       lastDocument = null;
     }
     List<FirebasePicture> result = [];
     QuerySnapshot snapshots;
     if (lastDocument != null) {
-      snapshots = await _continueLoading(Mode.toString());
+      snapshots = await _continueLoading(mode);
     } else {
-      snapshots = await _loadFromStart(Mode.toString());
+      snapshots = await _loadFromStart(mode);
     }
     List<QueryDocumentSnapshot> imagesData = snapshots.docs;
     imagesData.forEach((snapshot) {

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/scene/home_page/bloc/load_mode.dart';
 import 'package:gallery_test/entity/firebase_picture.dart';
 import 'package:gallery_test/repository/firebase/firebase_storage.dart';
@@ -13,7 +14,7 @@ class FireStore {
       {String name, String dayOfBirth, String email}) async {
     try {
       CollectionReference users =
-          FirebaseFirestore.instance.collection('users');
+          FirebaseFirestore.instance.collection(AppCollectionsStrings.users);
       await users.add(
         {"Name": name, "Email": email, "DayOfBirth": dayOfBirth},
       );
@@ -33,8 +34,8 @@ class FireStore {
 
   Future<QuerySnapshot> _continueLoading(String mode) async {
     return _instance
-        .collection("images")
-        .where('type', isEqualTo: mode)
+        .collection(AppCollectionsStrings.images)
+        .where(AppPictureStrings.pictureType, isEqualTo: mode)
         .startAfterDocument(lastDocument)
         .limit(_LOADLIMIT)
         .get();
@@ -42,8 +43,8 @@ class FireStore {
 
   Future<QuerySnapshot> _loadFromStart(String mode) async {
     return _instance
-        .collection("images")
-        .where('type', isEqualTo: mode)
+        .collection(AppCollectionsStrings.images)
+        .where(AppPictureStrings.pictureType, isEqualTo: mode)
         .limit(_LOADLIMIT)
         .get();
   }
@@ -52,9 +53,9 @@ class FireStore {
       {bool reset = false}) async {
     String mode;
     if (Mode == NewLoadMode) {
-      mode = "New";
+      mode = AppPictureStrings.pictureModeNew;
     } else if (Mode == PopularLoadMode) {
-      mode = "Popular";
+      mode = AppPictureStrings.pictureModePopular;
     }
     if (reset) {
       lastDocument = null;

@@ -22,21 +22,22 @@ class FirebasePicture implements Picture {
   String get author => this._author;
 
   FirebasePicture.fromData(Map<String, dynamic> data) {
-    this._author = data['author'];
-    this._countOfViews = data['count_of_views'];
+    this._author = data[AppPictureStrings.pictureAuthor];
+    this._countOfViews = data[AppPictureStrings.pictureViews];
     this._createdAt = DateTime.fromMillisecondsSinceEpoch(
-        (data['createdAt'] as Timestamp).millisecondsSinceEpoch);
-    this._name = data['name'];
+        (data[AppPictureStrings.pictureCreated] as Timestamp)
+            .millisecondsSinceEpoch);
+    this._name = data[AppPictureStrings.pictureName];
     this._docId = data['id'];
-    this._tags = List.from(data['tags']);
-    this._type = data['type'];
-    this._url = data['url'];
+    this._tags = List.from(data[AppPictureStrings.pictureTags]);
+    this._type = data[AppPictureStrings.pictureType];
+    this._url = data[AppPictureStrings.pictureUrl];
   }
 
   FirebasePicture({String name, String url}) {
     this._name = name;
     this._url = url;
-    this._type = "New";
+    this._type = AppPictureStrings.pictureModeNew;
     this._author = "ssakorni@gmail.com"; // TODO: Complete
     this._countOfViews = 0;
     this._createdAt = DateTime.now();
@@ -45,24 +46,27 @@ class FirebasePicture implements Picture {
 
   Map<String, dynamic> toJson() {
     return {
-      'url': url,
-      'count_of_views': countOfViews,
-      'createdAt': createdAt,
-      'name': name,
-      'tags': tags,
-      'type': type,
-      'author': author
+      AppPictureStrings.pictureUrl: url,
+      AppPictureStrings.pictureViews: countOfViews,
+      AppPictureStrings.pictureCreated: createdAt,
+      AppPictureStrings.pictureName: name,
+      AppPictureStrings.pictureTags: tags,
+      AppPictureStrings.pictureType: type,
+      AppPictureStrings.pictureAuthor: author
     };
   }
 
   void incViews() {
-    Map<String, dynamic> values = {"count_of_views": countOfViews};
+    Map<String, dynamic> values = {
+      AppPictureStrings.pictureViews: countOfViews
+    };
     this._countOfViews++;
     if (countOfViews == 15) {
-      values["type"] = AppStrings.photoModePopular;
+      values[AppPictureStrings.pictureViews] =
+          AppPictureStrings.pictureModePopular;
     }
     FireStore.updatefield(
-        collection: AppStrings.collectionImages,
+        collection: AppCollectionsStrings.images,
         docId: docId,
         updateValue: values);
   }

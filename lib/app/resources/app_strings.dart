@@ -28,8 +28,21 @@ class AppStrings {
   static const confirmPassHint = "Confirm password";
   static const bDayHint = "Birthday";
   static const seatchHint = "Search";
-  static const photoModeNew = "New";
-  static const photoModePopular = "Popular";
-  static const collectionImages = "images";
-  static const collectionUsers = "users";
+}
+
+class AppCollectionsStrings {
+  static const images = "images";
+  static const users = "users";
+}
+
+class AppPictureStrings {
+  static const pictureModeNew = "New";
+  static const pictureModePopular = "Popular";
+  static const pictureUrl = "url";
+  static const pictureViews = "count_of_views";
+  static const pictureCreated = "createdAt";
+  static const pictureName = "name";
+  static const pictureTags = "tags";
+  static const pictureType = "type";
+  static const pictureAuthor = "author";
 }

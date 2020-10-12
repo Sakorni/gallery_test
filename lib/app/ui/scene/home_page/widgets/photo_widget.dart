@@ -3,15 +3,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gallery_test/entity/gateway/picture.dart';
 
-class PhotoWidget extends StatelessWidget {
-  final Picture photo;
+class PictureWidget extends StatelessWidget {
+  final Picture picture;
 
-  const PhotoWidget(this.photo, {Key key}) : super(key: key);
+  const PictureWidget(this.picture, {Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     double _width = 166;
     double _height = 166;
-    bool isSvg = this.photo.name.contains(".svg");
+    bool isSvg = this.picture.name.contains(".svg");
     BoxDecoration _decoration() {
       if (!isSvg) {
         return BoxDecoration(
@@ -28,7 +28,7 @@ class PhotoWidget extends StatelessWidget {
             fit: BoxFit.fill,
             image: ResizeImage(
                 NetworkImage(
-                  photo.url,
+                  picture.url,
                 ),
                 width: _width.floor() * 3,
                 height: _height.floor() * 3),
@@ -49,10 +49,10 @@ class PhotoWidget extends StatelessWidget {
       }
     }
 
-    void _tapHadler() => print("Image tapped");
+    void _tapHadler() => picture.incViews();
     /*Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => PhotoPage(photo),
+            builder: (context) => PicturePage(picture),
           ),
         );*/
 
@@ -65,7 +65,7 @@ class PhotoWidget extends StatelessWidget {
           height: _width,
           child: isSvg
               ? SvgPicture.network(
-                  photo.url,
+                  picture.url,
                   fit: BoxFit.contain,
                 )
               : null,

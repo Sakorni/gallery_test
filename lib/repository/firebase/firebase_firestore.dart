@@ -23,6 +23,14 @@ class FireStore {
     }
   }
 
+  static Future updatefield(
+      {String collection,
+      String docId,
+      Map<String, dynamic> updateValue}) async {
+    DocumentReference doc = _instance.collection(collection).doc(docId);
+    await doc.update(updateValue);
+  }
+
   Future<QuerySnapshot> _continueLoading(String mode) async {
     return _instance
         .collection("images")
@@ -33,12 +41,11 @@ class FireStore {
   }
 
   Future<QuerySnapshot> _loadFromStart(String mode) async {
-    var instance = _instance;
-    var collection = instance.collection('images');
-    var where = collection.where('type', isEqualTo: mode);
-    var limited = where.limit(_LOADLIMIT);
-    var geted = await limited.get();
-    return geted;
+    return _instance
+        .collection("images")
+        .where('type', isEqualTo: mode)
+        .limit(_LOADLIMIT)
+        .get();
   }
 
   Future<List<FirebasePicture>> getPictures<Mode extends LoadMode>(
@@ -63,6 +70,7 @@ class FireStore {
     imagesData.forEach((snapshot) {
       Map<String, dynamic> data = snapshot.data();
       if (data.isNotEmpty) {
+        data['id'] = snapshot.id;
         result.add(FirebasePicture.fromData(data));
       }
     });

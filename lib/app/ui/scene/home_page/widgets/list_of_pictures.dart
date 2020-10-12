@@ -47,7 +47,7 @@ class ListOfPhotoPage<Mode extends LoadMode> extends StatelessWidget {
     _clearReset();
   }
 
-  Widget photoRefresher(List<Picture> _photo, BuildContext context) {
+  Widget photoRefresher(List<Picture> pictures, BuildContext context) {
     return SmartRefresher(
       controller: _refreshController,
       enablePullDown: true,
@@ -59,7 +59,7 @@ class ListOfPhotoPage<Mode extends LoadMode> extends StatelessWidget {
       child: GridView.count(
         physics: ClampingScrollPhysics(),
         crossAxisCount: 2,
-        children: _photo.map((e) => PhotoWidget(e)).toList(),
+        children: pictures.map((picture) => PictureWidget(picture)).toList(),
       ),
     );
   }

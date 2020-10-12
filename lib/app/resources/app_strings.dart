@@ -30,4 +30,6 @@ class AppStrings {
   static const seatchHint = "Search";
   static const photoModeNew = "New";
   static const photoModePopular = "Popular";
+  static const collectionImages = "images";
+  static const collectionUsers = "users";
 }

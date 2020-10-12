@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/entity/gateway/picture.dart';
+import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
 
 class FirebasePicture implements Picture {
+  String _docId;
+  String get docId => this._docId;
   String _name;
   String get name => this._name;
   String _url;
@@ -23,6 +27,7 @@ class FirebasePicture implements Picture {
     this._createdAt = DateTime.fromMillisecondsSinceEpoch(
         (data['createdAt'] as Timestamp).millisecondsSinceEpoch);
     this._name = data['name'];
+    this._docId = data['id'];
     this._tags = List.from(data['tags']);
     this._type = data['type'];
     this._url = data['url'];
@@ -38,8 +43,6 @@ class FirebasePicture implements Picture {
     this._tags = [];
   }
 
-  void incViews() {}
-
   Map<String, dynamic> toJson() {
     return {
       'url': url,
@@ -50,5 +53,17 @@ class FirebasePicture implements Picture {
       'type': type,
       'author': author
     };
+  }
+
+  void incViews() {
+    Map<String, dynamic> values = {"count_of_views": countOfViews};
+    this._countOfViews++;
+    if (countOfViews == 15) {
+      values["type"] = AppStrings.photoModePopular;
+    }
+    FireStore.updatefield(
+        collection: AppStrings.collectionImages,
+        docId: docId,
+        updateValue: values);
   }
 }

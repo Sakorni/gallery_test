@@ -7,6 +7,8 @@ class FirebasePicture implements Picture {
   String _docId;
   String get docId => this._docId;
   String _name;
+  String _description;
+  String get description => this._description;
   String get name => this._name;
   String _url;
   String get url => this._url;
@@ -32,6 +34,7 @@ class FirebasePicture implements Picture {
     this._tags = List.from(data[AppPictureStrings.pictureTags]);
     this._type = data[AppPictureStrings.pictureType];
     this._url = data[AppPictureStrings.pictureUrl];
+    this._description = data[AppPictureStrings.pictureDescription];
   }
 
   FirebasePicture({String name, String url}) {
@@ -40,6 +43,7 @@ class FirebasePicture implements Picture {
     this._type = AppPictureStrings.pictureModeNew;
     this._author = "ssakorni@gmail.com"; // TODO: Complete
     this._countOfViews = 0;
+    this._description = "";
     this._createdAt = DateTime.now();
     this._tags = [];
   }
@@ -52,7 +56,8 @@ class FirebasePicture implements Picture {
       AppPictureStrings.pictureName: name,
       AppPictureStrings.pictureTags: tags,
       AppPictureStrings.pictureType: type,
-      AppPictureStrings.pictureAuthor: author
+      AppPictureStrings.pictureAuthor: author,
+      AppPictureStrings.pictureDescription: description,
     };
   }
 
@@ -61,8 +66,8 @@ class FirebasePicture implements Picture {
       AppPictureStrings.pictureViews: countOfViews
     };
     this._countOfViews++;
-    if (countOfViews == 15) {
-      values[AppPictureStrings.pictureViews] =
+    if (countOfViews == 10) {
+      values[AppPictureStrings.pictureType] =
           AppPictureStrings.pictureModePopular;
     }
     FireStore.updatefield(

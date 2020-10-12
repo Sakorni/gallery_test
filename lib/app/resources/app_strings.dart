@@ -45,4 +45,5 @@ class AppPictureStrings {
   static const pictureTags = "tags";
   static const pictureType = "type";
   static const pictureAuthor = "author";
+  static const pictureDescription = "description";
 }

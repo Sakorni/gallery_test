@@ -1,6 +1,8 @@
 abstract class Picture {
   String _name;
   String get name => this._name;
+  String _description;
+  String get description => this._description;
   String _url;
   String get url => this._url;
   int _countOfViews;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gallery_test/app/ui/scene/home_page/widgets/detail_picture_page.dart';
 import 'package:gallery_test/entity/gateway/picture.dart';
 
 class PictureWidget extends StatelessWidget {
@@ -49,12 +50,14 @@ class PictureWidget extends StatelessWidget {
       }
     }
 
-    void _tapHadler() => picture.incViews();
-    /*Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => PicturePage(picture),
-          ),
-        );*/
+    void _tapHadler() {
+      picture.incViews();
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => DetailPicturePage(picture),
+        ),
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.all(7.5),

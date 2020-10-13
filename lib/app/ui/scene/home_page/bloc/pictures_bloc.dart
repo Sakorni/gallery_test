@@ -2,9 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gallery_test/app/ui/scene/home_page/bloc/load_mode.dart';
-import 'package:gallery_test/entity/gateway/picture.dart';
+import 'package:gallery_test/data/gateway/picture.dart';
 import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
 import 'package:meta/meta.dart';
 

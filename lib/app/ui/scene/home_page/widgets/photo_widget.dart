@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/detail_picture_page.dart';
-import 'package:gallery_test/entity/gateway/picture.dart';
+import 'package:gallery_test/data/gateway/picture.dart';
 
 class PictureWidget extends StatelessWidget {
   final Picture picture;

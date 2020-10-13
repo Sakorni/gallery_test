@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
-import 'package:gallery_test/entity/gateway/picture.dart';
+import 'package:gallery_test/data/gateway/picture.dart';
 import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
 
 class FirebasePicture implements Picture {
@@ -76,3 +76,4 @@ class FirebasePicture implements Picture {
         updateValue: values);
   }
 }
+//TODO: MaxLength 23

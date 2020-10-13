@@ -6,7 +6,7 @@ import 'package:gallery_test/app/ui/scene/home_page/bloc/pictures_bloc.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/no_pictures.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/photo_widget.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/circular_loader.dart';
-import 'package:gallery_test/entity/gateway/picture.dart';
+import 'package:gallery_test/data/gateway/picture.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // ignore: must_be_immutable

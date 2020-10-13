@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/scene/home_page/bloc/load_mode.dart';
-import 'package:gallery_test/entity/firebase_picture.dart';
+import 'package:gallery_test/data/entity/firebase_picture.dart';
 import 'package:gallery_test/repository/firebase/firebase_storage.dart';
 
 class FireStore {

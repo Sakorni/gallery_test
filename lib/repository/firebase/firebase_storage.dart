@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:gallery_test/entity/firebase_picture.dart';
-import 'package:gallery_test/entity/gateway/image_storage.dart';
+import 'package:gallery_test/data/entity/firebase_picture.dart';
+import 'package:gallery_test/data/gateway/image_storage.dart';
 
 class FireBaseStorage implements ImageStorage {
   Future downloadPicture() {}

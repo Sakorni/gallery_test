@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/resources/asset_images_path.dart';
-import 'package:gallery_test/entity/gateway/picture.dart';
+import 'package:gallery_test/data/gateway/picture.dart';
 
 class DetailPicturePage extends StatelessWidget {
   final Picture picture;

@@ -9,6 +9,10 @@ class TextValidators {
     return null;
   }
 
+  static String empty(String value) {
+    return null;
+  }
+
   static String passwordValidator(String value) {
     final RegExp passRegex = RegExp(r'[a-z]|[а-я]');
 

@@ -58,7 +58,10 @@ class _HomePageState extends State<HomePage> {
         PickedFile file = await picker.getImage(source: ImageSource.gallery);
         FireStore.createImg(File(file.path));
       }),
-      body: pages[selectedIndex],
+      body: IndexedStack(
+        children: pages,
+        index: selectedIndex,
+      ),
     );
   }
 }

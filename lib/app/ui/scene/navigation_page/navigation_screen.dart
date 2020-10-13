@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/resources/asset_images_path.dart';
+import 'package:gallery_test/app/ui/scene/add_photo_page/screen/add_photo_page.dart';
 import 'package:gallery_test/app/ui/scene/home_page/home_page.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -10,6 +11,7 @@ class NavigationScreen extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreen> {
   int index;
+  double _size = 23;
   @override
   void initState() {
     index = 0;
@@ -32,23 +34,23 @@ class _NavigationScreenState extends State<NavigationScreen> {
                 label: '',
                 icon: Image.asset(
                   NavBarIconAssetsPath.home,
-                  width: 23,
-                  height: 23,
+                  width: _size,
+                  height: _size,
                 )),
             BottomNavigationBarItem(
               label: '',
               icon: Image.asset(
                 NavBarIconAssetsPath.photo,
-                width: 23,
-                height: 23,
+                width: _size,
+                height: _size,
               ),
             ),
             BottomNavigationBarItem(
               label: '',
               icon: Image.asset(
                 NavBarIconAssetsPath.profile,
-                width: 23,
-                height: 23,
+                width: _size,
+                height: _size,
               ),
             )
           ],
@@ -56,11 +58,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           selectedItemColor: AppColors.underLineColor,
         ),
         body: IndexedStack(
-          children: [
-            HomePage(),
-            Center(child: Text("2")),
-            Center(child: Text("3"))
-          ],
+          children: [HomePage(), AddPhotoPage(), Center(child: Text("3"))],
           index: index,
         ));
   }

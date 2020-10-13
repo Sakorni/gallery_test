@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/ui/scene/home_page/home_page.dart';
+import 'package:gallery_test/app/ui/scene/navigation_page/navigation_screen.dart';
 
 import 'app/ui/scene/home_page/bloc/load_mode.dart';
 import 'app/ui/scene/home_page/bloc/pictures_bloc.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             create: (context) => PicturesBloc<PopularLoadMode>(),
           ),
         ],
-        child: HomePage(id: "123"),
+        child: NavigationScreen(),
       ),
     ); //WelcomeScreen());
   }

@@ -8,3 +8,9 @@ class AssetImagePath {
   static const String voiceIcon = "assets/voice_icon.png";
   static const String searchIcon = "assets/search_icon.png";
 }
+
+class NavBarIconAssetsPath {
+  static const String home = "assets/home_icon.png";
+  static const String photo = "assets/photo_icon.png";
+  static const String profile = "assets/profile_icon.png";
+}

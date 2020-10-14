@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPhotoPage extends StatelessWidget {
-  ImagePicker _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     String email = context

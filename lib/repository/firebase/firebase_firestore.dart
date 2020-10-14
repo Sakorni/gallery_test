@@ -102,7 +102,8 @@ class FireStore {
           url: url);
       CollectionReference images =
           _instance.collection(AppCollectionsStrings.images);
-      DocumentReference res = await images.add(pic.toJson());
+      await images.add(pic.toJson());
+      return true;
     } catch (e) {
       return false;
     }

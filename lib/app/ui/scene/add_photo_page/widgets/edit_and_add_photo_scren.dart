@@ -1,13 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/ui/custom_widgets/tag_field.dart';
 import 'package:gallery_test/app/ui/scene/add_photo_page/widgets/empty_tag.dart';
 import 'package:gallery_test/app/ui/scene/add_photo_page/widgets/photo_text_field.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/utils/text_validators.dart';
-import 'package:gallery_test/app/ui/scene/navigation_page/bloc/repository_bloc.dart';
 import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
 
 class EditAndAddPhotoScreen extends StatefulWidget {

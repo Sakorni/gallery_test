@@ -20,6 +20,7 @@ class FireAuth {
         throw WrongPassword();
       }
     }
+    return null;
   }
 
   static Future<user.FirebaseUser> signUp(

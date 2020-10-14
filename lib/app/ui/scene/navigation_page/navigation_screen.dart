@@ -6,7 +6,6 @@ import 'package:gallery_test/app/ui/scene/add_photo_page/screen/add_photo_page.d
 import 'package:gallery_test/app/ui/scene/home_page/bloc/load_mode.dart';
 import 'package:gallery_test/app/ui/scene/home_page/bloc/pictures_bloc.dart';
 import 'package:gallery_test/app/ui/scene/home_page/home_page.dart';
-import 'package:gallery_test/app/ui/scene/navigation_page/bloc/repository_bloc.dart';
 
 class NavigationScreen extends StatefulWidget {
   @override

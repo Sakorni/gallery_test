@@ -17,6 +17,7 @@ class _EmptyTagFieldState extends State<EmptyTagField> {
   double width = _minWidth;
   @override
   void initState() {
+    // ignore: invalid_use_of_protected_member
     if (!widget.controller.hasListeners) {
       widget.controller.addListener(() {
         String text = widget.controller.text;

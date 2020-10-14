@@ -1,17 +1,20 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/ui/custom_widgets/tag_field.dart';
 import 'package:gallery_test/app/ui/scene/add_photo_page/widgets/empty_tag.dart';
 import 'package:gallery_test/app/ui/scene/add_photo_page/widgets/photo_text_field.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/utils/text_validators.dart';
+import 'package:gallery_test/app/ui/scene/navigation_page/bloc/repository_bloc.dart';
 import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
 
 class EditAndAddPhotoScreen extends StatefulWidget {
   final File pictureFile;
+  final String email;
 
-  EditAndAddPhotoScreen(this.pictureFile);
+  EditAndAddPhotoScreen(this.pictureFile, this.email);
 
   @override
   _EditAndAddPhotoScreenState createState() => _EditAndAddPhotoScreenState();
@@ -21,8 +24,6 @@ class _EditAndAddPhotoScreenState extends State<EditAndAddPhotoScreen> {
   final FocusNode _nameNode = FocusNode();
 
   final FocusNode _descriptionNode = FocusNode();
-
-  final FocusNode _newTagFocus = FocusNode();
 
   final GlobalKey<FormState> _nameKey = GlobalKey<FormState>();
 
@@ -56,13 +57,14 @@ class _EditAndAddPhotoScreenState extends State<EditAndAddPhotoScreen> {
     });
   }
 
-  void addPicture() {
+  void addPicture(BuildContext context) {
     if (TextValidators.allValidated([_nameKey, _descriptionKey])) {
       FireStore.createImg(widget.pictureFile,
-          author: "ssakorni@gmail.com",
+          author: widget.email,
           description: _descriptionController.text,
           name: _nameController.text,
           tags: tags);
+      Navigator.of(context).pop();
     }
   }
 
@@ -78,7 +80,7 @@ class _EditAndAddPhotoScreenState extends State<EditAndAddPhotoScreen> {
         elevation: 0,
         actions: [
           FlatButton(
-            onPressed: addPicture,
+            onPressed: () => addPicture(context),
             child: Text(
               "Add",
               style: TextStyle(color: AppColors.underLineColor, fontSize: 15),

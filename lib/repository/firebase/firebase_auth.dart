@@ -30,10 +30,13 @@ class FireAuth {
       String dayOfBirth}) async {
     if (oldPassword != confrimPassword) throw PasswordNotConfirmed();
     try {
-      await FirebaseAuth.instance
+      UserCredential user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: oldPassword);
       return FireStore.addUser(
-          name: name, dayOfBirth: dayOfBirth ?? '', email: email);
+          name: name,
+          dayOfBirth: dayOfBirth ?? '',
+          email: email,
+          id: user.user.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw WeakPassword();

@@ -12,12 +12,13 @@ class FireStore {
   DocumentSnapshot lastDocument;
 
   static Future<FirebaseUser> addUser(
-      {String name, String dayOfBirth, String email}) async {
+      {String name, String dayOfBirth, String email, String id}) async {
     FirebaseUser user =
         FirebaseUser(name: name, dayOfBirth: dayOfBirth, email: email);
-    CollectionReference users =
-        FirebaseFirestore.instance.collection(AppCollectionsStrings.users);
-    await users.add(user.toJson());
+    DocumentReference users = FirebaseFirestore.instance
+        .collection(AppCollectionsStrings.users)
+        .doc(id);
+    await users.set(user.toJson());
     return user;
   }
 
@@ -25,7 +26,8 @@ class FireStore {
     DocumentReference doc =
         _instance.collection(AppCollectionsStrings.users).doc(id);
     DocumentSnapshot snapshot = await doc.get();
-    return FirebaseUser.fromData(snapshot.data());
+    Map<String, dynamic> data = snapshot.data();
+    return FirebaseUser.fromData(data);
   }
 
   static Future updatefield(

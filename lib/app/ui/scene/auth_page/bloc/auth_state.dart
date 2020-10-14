@@ -11,7 +11,7 @@ class AuthError extends AuthState {
 }
 
 class AuthSuccess extends AuthState {
-  final String userId;
+  final User user;
 
-  AuthSuccess(this.userId);
+  AuthSuccess(this.user);
 }

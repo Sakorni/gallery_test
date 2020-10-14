@@ -47,3 +47,9 @@ class AppPictureStrings {
   static const pictureAuthor = "author";
   static const pictureDescription = "description";
 }
+
+class AppUserStrings {
+  static const name = "Name";
+  static const email = "Email";
+  static const dayOfBirth = "DayOfBirth";
+}

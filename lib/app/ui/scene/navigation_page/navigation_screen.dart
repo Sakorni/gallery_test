@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/resources/asset_images_path.dart';
 import 'package:gallery_test/app/ui/scene/add_photo_page/screen/add_photo_page.dart';
+import 'package:gallery_test/app/ui/scene/home_page/bloc/load_mode.dart';
+import 'package:gallery_test/app/ui/scene/home_page/bloc/pictures_bloc.dart';
 import 'package:gallery_test/app/ui/scene/home_page/home_page.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -12,9 +15,25 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   int index;
   double _size = 23;
+  final homePage = MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => PicturesBloc<NewLoadMode>(),
+      ),
+      BlocProvider(
+        create: (context) => PicturesBloc<PopularLoadMode>(),
+      ),
+    ],
+    child: HomePage(),
+  );
+  final photoPage = AddPhotoPage();
+  final profilePage = Center(child: Text("3"));
+  List<Widget> pages = [];
+
   @override
   void initState() {
     index = 0;
+    pages = [homePage, photoPage, profilePage];
     super.initState();
   }
 
@@ -58,7 +77,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           selectedItemColor: AppColors.underLineColor,
         ),
         body: IndexedStack(
-          children: [HomePage(), AddPhotoPage(), Center(child: Text("3"))],
+          children: pages,
           index: index,
         ));
   }

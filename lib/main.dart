@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/ui/scene/home_page/home_page.dart';
+import 'package:gallery_test/app/ui/scene/navigation_page/bloc/repository_bloc.dart';
 import 'package:gallery_test/app/ui/scene/navigation_page/navigation_screen.dart';
 
 import 'app/ui/scene/home_page/bloc/load_mode.dart';
 import 'app/ui/scene/home_page/bloc/pictures_bloc.dart';
+import 'app/ui/scene/welcome_screen/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,23 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        backgroundColor: Colors.white,
-        canvasColor: Colors.white,
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => PicturesBloc<NewLoadMode>(),
-          ),
-          BlocProvider(
-            create: (context) => PicturesBloc<PopularLoadMode>(),
-          ),
-        ],
-        child: NavigationScreen(),
-      ),
-    ); //WelcomeScreen());
+        theme: ThemeData(
+          backgroundColor: Colors.white,
+          canvasColor: Colors.white,
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: WelcomeScreen());
   }
 }

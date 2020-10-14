@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/scene/home_page/bloc/load_mode.dart';
 import 'package:gallery_test/data/entity/firebase_picture.dart';
+import 'package:gallery_test/data/entity/firebase_user.dart';
 import 'package:gallery_test/repository/firebase/firebase_storage.dart';
 
 class FireStore {
@@ -10,18 +11,21 @@ class FireStore {
   static const _LOADLIMIT = 10;
   DocumentSnapshot lastDocument;
 
-  static Future<bool> addUser(
+  static Future<FirebaseUser> addUser(
       {String name, String dayOfBirth, String email}) async {
-    try {
-      CollectionReference users =
-          FirebaseFirestore.instance.collection(AppCollectionsStrings.users);
-      await users.add(
-        {"Name": name, "Email": email, "DayOfBirth": dayOfBirth},
-      );
-      return true;
-    } on FirebaseException {
-      return false;
-    }
+    FirebaseUser user =
+        FirebaseUser(name: name, dayOfBirth: dayOfBirth, email: email);
+    CollectionReference users =
+        FirebaseFirestore.instance.collection(AppCollectionsStrings.users);
+    await users.add(user.toJson());
+    return user;
+  }
+
+  static Future<FirebaseUser> getUser(String id) async {
+    DocumentReference doc =
+        _instance.collection(AppCollectionsStrings.users).doc(id);
+    DocumentSnapshot snapshot = await doc.get();
+    return FirebaseUser.fromData(snapshot.data());
   }
 
   static Future updatefield(
@@ -81,22 +85,24 @@ class FireStore {
     return result;
   }
 
-  static Future createImg(File file,
+  static Future<bool> createImg(File file,
       {String name,
       String description,
       List<String> tags,
       String author}) async {
-    String url = await FireBaseStorage().uploadPicture(file);
-    FirebasePicture pic = FirebasePicture(
-        author: author,
-        description: description,
-        tags: tags,
-        name: name,
-        url: url);
-    CollectionReference images =
-        _instance.collection(AppCollectionsStrings.images);
-    DocumentReference res = await images.add(pic.toJson());
-    print(res.toString());
-    //TODO: TryCatch
+    try {
+      String url = await FireBaseStorage().uploadPicture(file);
+      FirebasePicture pic = FirebasePicture(
+          author: author,
+          description: description,
+          tags: tags,
+          name: name,
+          url: url);
+      CollectionReference images =
+          _instance.collection(AppCollectionsStrings.images);
+      DocumentReference res = await images.add(pic.toJson());
+    } catch (e) {
+      return false;
+    }
   }
 }

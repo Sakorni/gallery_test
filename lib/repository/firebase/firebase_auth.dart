@@ -1,16 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../data/entity/firebase_user.dart' as user;
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/utils/errors.dart';
 
 import 'firebase_firestore.dart';
 
 class FireAuth {
-  static Future<String> signIn(
+  static Future<user.FirebaseUser> signIn(
       {@required String email, @required String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      return userCredential.user.uid;
+      var user = await FireStore.getUser(userCredential.user.uid);
+      return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw NoSuchUser();
@@ -18,14 +20,9 @@ class FireAuth {
         throw WrongPassword();
       }
     }
-
-    /// TODO ???
-    /// лучше эксепшн на ошибки не от firebase
-    /// ниже аналогично
-    return '';
   }
 
-  static Future<String> signUp(
+  static Future<user.FirebaseUser> signUp(
       {@required String email,
       @required String oldPassword,
       @required String name,
@@ -33,11 +30,10 @@ class FireAuth {
       String dayOfBirth}) async {
     if (oldPassword != confrimPassword) throw PasswordNotConfirmed();
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: oldPassword);
-      FireStore.addUser(name: name, dayOfBirth: dayOfBirth ?? '', email: email);
-
-      return userCredential.user.uid;
+      return FireStore.addUser(
+          name: name, dayOfBirth: dayOfBirth ?? '', email: email);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw WeakPassword();

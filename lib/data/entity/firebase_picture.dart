@@ -37,15 +37,20 @@ class FirebasePicture implements Picture {
     this._description = data[AppPictureStrings.pictureDescription];
   }
 
-  FirebasePicture({String name, String url}) {
+  FirebasePicture(
+      {String name,
+      String url,
+      String description,
+      List<String> tags,
+      String author}) {
     this._name = name;
     this._url = url;
     this._type = AppPictureStrings.pictureModeNew;
-    this._author = "ssakorni@gmail.com"; // TODO: Complete
+    this._author = author;
     this._countOfViews = 0;
-    this._description = "";
+    this._description = description;
     this._createdAt = DateTime.now();
-    this._tags = [];
+    this._tags = tags;
   }
 
   Map<String, dynamic> toJson() {

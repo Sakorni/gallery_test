@@ -2,24 +2,75 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
+import 'package:gallery_test/app/ui/custom_widgets/tag_field.dart';
+import 'package:gallery_test/app/ui/scene/add_photo_page/widgets/empty_tag.dart';
 import 'package:gallery_test/app/ui/scene/add_photo_page/widgets/photo_text_field.dart';
+import 'package:gallery_test/app/ui/scene/auth_page/bloc/utils/text_validators.dart';
+import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
 
-class EditAndAddPhotoScreen extends StatelessWidget {
-  final FocusNode _nameNode = FocusNode();
-  final FocusNode _descriptionNode = FocusNode();
-  final GlobalKey<FormState> _nameKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _descriptionKey = GlobalKey<FormState>();
+class EditAndAddPhotoScreen extends StatefulWidget {
   final File pictureFile;
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
-  final List<String> tags = [];
+
   EditAndAddPhotoScreen(this.pictureFile);
+
+  @override
+  _EditAndAddPhotoScreenState createState() => _EditAndAddPhotoScreenState();
+}
+
+class _EditAndAddPhotoScreenState extends State<EditAndAddPhotoScreen> {
+  final FocusNode _nameNode = FocusNode();
+
+  final FocusNode _descriptionNode = FocusNode();
+
+  final FocusNode _newTagFocus = FocusNode();
+
+  final GlobalKey<FormState> _nameKey = GlobalKey<FormState>();
+
+  final GlobalKey<FormState> _descriptionKey = GlobalKey<FormState>();
+
+  final TextEditingController _nameController = TextEditingController();
+
+  final TextEditingController _newTagController = TextEditingController();
+
+  final TextEditingController _descriptionController = TextEditingController();
+
+  final List<String> tags = [];
+
   void dropFocus(BuildContext context) {
-    Focus.of(context).requestFocus(FocusNode());
+    FocusScope.of(context).unfocus();
+  }
+
+  void addTag() {
+    String text = _newTagController.text;
+    if (text.isNotEmpty) {
+      _newTagController.clear();
+      setState(() {
+        tags.add(text);
+      });
+    }
+  }
+
+  void removeTag(String tag) {
+    setState(() {
+      tags.remove(tag);
+    });
+  }
+
+  void addPicture() {
+    if (TextValidators.allValidated([_nameKey, _descriptionKey])) {
+      FireStore.createImg(widget.pictureFile,
+          author: "ssakorni@gmail.com",
+          description: _descriptionController.text,
+          name: _nameController.text,
+          tags: tags);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> tagList = List<Widget>.from(tags.map(
+        (tag) => TagField.temporary(tag: tag, action: () => removeTag(tag))));
+    tagList.add(EmptyTagField(controller: _newTagController, action: addTag));
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -27,7 +78,7 @@ class EditAndAddPhotoScreen extends StatelessWidget {
         elevation: 0,
         actions: [
           FlatButton(
-            onPressed: () => print("tapped"),
+            onPressed: addPicture,
             child: Text(
               "Add",
               style: TextStyle(color: AppColors.underLineColor, fontSize: 15),
@@ -36,11 +87,12 @@ class EditAndAddPhotoScreen extends StatelessWidget {
         ],
       ),
       body: GestureDetector(
+        excludeFromSemantics: true,
         onTap: () => dropFocus(context),
         child: Flex(direction: Axis.vertical, children: [
           Expanded(
             child: Image.file(
-              pictureFile,
+              widget.pictureFile,
               fit: BoxFit.contain,
             ),
           ),
@@ -67,6 +119,7 @@ class EditAndAddPhotoScreen extends StatelessWidget {
                         focusNode: _descriptionNode,
                         validKey: _descriptionKey,
                         action: () => dropFocus(context)),
+                    Wrap(children: tagList)
                   ],
                 ),
               ),

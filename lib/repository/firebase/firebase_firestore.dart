@@ -81,10 +81,20 @@ class FireStore {
     return result;
   }
 
-  static Future createImg(File file) async {
-    FirebasePicture pic = await FireBaseStorage().uploadPicture(file);
+  static Future createImg(File file,
+      {String name,
+      String description,
+      List<String> tags,
+      String author}) async {
+    String url = await FireBaseStorage().uploadPicture(file);
+    FirebasePicture pic = FirebasePicture(
+        author: author,
+        description: description,
+        tags: tags,
+        name: name,
+        url: url);
     CollectionReference images =
-        FirebaseFirestore.instance.collection("images");
+        _instance.collection(AppCollectionsStrings.images);
     DocumentReference res = await images.add(pic.toJson());
     print(res.toString());
     //TODO: TryCatch

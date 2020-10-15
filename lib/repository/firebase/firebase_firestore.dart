@@ -38,25 +38,26 @@ class FireStore {
     await doc.update(updateValue);
   }
 
-  Future<QuerySnapshot> _continueLoading(String mode) async {
+  Future<QuerySnapshot> _continueLoading({String field, String equalTo}) async {
     return _instance
         .collection(AppCollectionsStrings.images)
-        .where(AppPictureStrings.pictureType, isEqualTo: mode)
+        .where(field, isEqualTo: equalTo)
         .startAfterDocument(lastDocument)
         .limit(_LOADLIMIT)
         .get();
   }
 
-  Future<QuerySnapshot> _loadFromStart(String mode) async {
+  Future<QuerySnapshot> _loadFromStart({String field, String equalTo}) async {
     return _instance
         .collection(AppCollectionsStrings.images)
-        .where(AppPictureStrings.pictureType, isEqualTo: mode)
+        .where(field, isEqualTo: equalTo)
         .limit(_LOADLIMIT)
         .get();
   }
 
-  Future<List<FirebasePicture>> getPictures<Mode extends LoadMode>(
-      {bool reset = false}) async {
+  Future<List<FirebasePicture>> getPictures<Mode extends LoadMode>({
+    bool reset = false,
+  }) async {
     String mode;
     if (Mode == NewLoadMode) {
       mode = AppPictureStrings.pictureModeNew;
@@ -69,9 +70,39 @@ class FireStore {
     List<FirebasePicture> result = [];
     QuerySnapshot snapshots;
     if (lastDocument != null) {
-      snapshots = await _continueLoading(mode);
+      snapshots = await _continueLoading(
+          field: AppPictureStrings.pictureType, equalTo: mode);
     } else {
-      snapshots = await _loadFromStart(mode);
+      snapshots = await _loadFromStart(
+          field: AppPictureStrings.pictureType, equalTo: mode);
+    }
+    List<QueryDocumentSnapshot> imagesData = snapshots.docs;
+    imagesData.forEach((snapshot) {
+      Map<String, dynamic> data = snapshot.data();
+      if (data.isNotEmpty) {
+        data['id'] = snapshot.id;
+        result.add(FirebasePicture.fromData(data));
+      }
+    });
+    if (imagesData.isNotEmpty) {
+      lastDocument = imagesData.last;
+    }
+    return result;
+  }
+
+  Future<List<FirebasePicture>> getUsersPictures(String email,
+      {bool reset = false}) async {
+    if (reset) {
+      lastDocument = null;
+    }
+    List<FirebasePicture> result = [];
+    QuerySnapshot snapshots;
+    if (lastDocument != null) {
+      snapshots = await _continueLoading(
+          field: AppPictureStrings.pictureAuthor, equalTo: email);
+    } else {
+      snapshots = await _loadFromStart(
+          field: AppPictureStrings.pictureAuthor, equalTo: email);
     }
     List<QueryDocumentSnapshot> imagesData = snapshots.docs;
     imagesData.forEach((snapshot) {

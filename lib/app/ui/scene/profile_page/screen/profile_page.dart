@@ -45,7 +45,12 @@ class _ProfilePageState extends State<ProfilePage> {
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
           actions: [
-            FlatButton(onPressed: () => print("press"), child: Text("label")),
+            GestureDetector(
+                onTap: () => print("press"),
+                child: Image.asset(
+                  AssetImagePath.settingsIcon,
+                  scale: 1.5,
+                )),
           ]),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

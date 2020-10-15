@@ -64,4 +64,12 @@ class FirebaseUser implements User {
         docId: id,
         updateValue: {AppUserStrings.loaded: loaded});
   }
+
+  Future<void> update() {
+    return FireStore.updatefield(
+      collection: AppCollectionsStrings.users,
+      docId: id,
+      updateValue: this.toJson(),
+    );
+  }
 }

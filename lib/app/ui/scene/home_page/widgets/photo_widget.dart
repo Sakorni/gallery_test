@@ -9,10 +9,13 @@ import 'package:gallery_test/data/gateway/picture.dart';
 class PictureWidget extends StatelessWidget {
   final Picture picture;
   final bool isSvg;
-  PictureWidget(this.picture) : isSvg = picture.name.contains(".svg");
+  final void Function() callback;
+  PictureWidget(this.picture, {this.callback})
+      : isSvg = picture.name.contains(".svg");
 
   void _tapHadler(BuildContext context) {
     picture.incViews();
+    callback();
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => DetailPicturePage(picture),

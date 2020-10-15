@@ -35,6 +35,17 @@ class _EditAndAddPhotoScreenState extends State<EditAndAddPhotoScreen> {
 
   final List<String> tags = [];
 
+  buildShowDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+  }
+
   void dropFocus(BuildContext context) {
     FocusScope.of(context).unfocus();
   }
@@ -55,14 +66,16 @@ class _EditAndAddPhotoScreenState extends State<EditAndAddPhotoScreen> {
     });
   }
 
-  void addPicture(BuildContext context) {
+  void addPicture(BuildContext context) async {
+    buildShowDialog(context);
     if (TextValidators.allValidated([_nameKey, _descriptionKey])) {
-      FireStore.createImg(widget.pictureFile,
+      bool result = await FireStore.createImg(widget.pictureFile,
           author: widget.email,
           description: _descriptionController.text,
           name: _nameController.text,
           tags: tags);
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(); //Скидываю экран с крутяшкой
+      Navigator.of(context).pop(result);
     }
   }
 

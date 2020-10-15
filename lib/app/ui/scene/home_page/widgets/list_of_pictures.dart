@@ -6,6 +6,7 @@ import 'package:gallery_test/app/ui/scene/home_page/bloc/pictures_bloc.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/no_pictures.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/photo_widget.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/circular_loader.dart';
+import 'package:gallery_test/app/ui/scene/navigation_page/bloc/repository_bloc.dart';
 import 'package:gallery_test/data/gateway/picture.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -17,6 +18,10 @@ class ListOfPhotoPage<Mode extends LoadMode> extends StatelessWidget {
 
   bool _reset = false;
   bool _load = false;
+
+  void _callBack(BuildContext context) {
+    BlocProvider.of<RepositoryBloc>(context).user.incViews();
+  }
 
   void _resetPhotos(BuildContext context) {
     _reset = true;
@@ -59,7 +64,10 @@ class ListOfPhotoPage<Mode extends LoadMode> extends StatelessWidget {
       child: GridView.count(
         physics: ClampingScrollPhysics(),
         crossAxisCount: 2,
-        children: pictures.map((picture) => PictureWidget(picture)).toList(),
+        children: pictures
+            .map((picture) =>
+                PictureWidget(picture, callback: () => _callBack(context)))
+            .toList(),
       ),
     );
   }

@@ -6,16 +6,14 @@ import 'package:gallery_test/app/ui/custom_widgets/logo_picture.dart';
 import 'package:gallery_test/app/ui/scene/add_photo_page/widgets/edit_and_add_photo_scren.dart';
 import 'package:gallery_test/app/ui/scene/navigation_page/bloc/repository_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gallery_test/data/entity/firebase_user.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPhotoPage extends StatelessWidget {
   final ImagePicker _picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
-    String email = context
-        .bloc<RepositoryBloc>()
-        .user
-        .email; // Да, переменная в билде, но мне нужен этот email
+    FirebaseUser user = context.bloc<RepositoryBloc>().user;
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       LogoPicture(),
       SizedBox(height: 30),
@@ -28,11 +26,15 @@ class AddPhotoPage extends StatelessWidget {
                 await _picker.getImage(source: ImageSource.gallery);
             if (pickedFile != null) {
               File file = File(pickedFile.path);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          EditAndAddPhotoScreen(file, email)));
+              bool loaded = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditAndAddPhotoScreen(file, user.email),
+                ),
+              );
+              if (loaded) {
+                user.incLoaded();
+              }
             }
           },
           caption: "Add photo",

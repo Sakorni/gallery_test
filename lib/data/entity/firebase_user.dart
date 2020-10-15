@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/data/gateway/user.dart';
+import 'package:gallery_test/repository/firebase/firebase_auth.dart';
 import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
 
 class FirebaseUser implements User {
+  String _password;
+  String get password => this._password;
   String _id;
   String get id => this._id;
   String _name;
@@ -17,25 +20,29 @@ class FirebaseUser implements User {
   int _loaded;
   int get loaded => this._loaded;
 
-  FirebaseUser.defaultUser(
-      {@required String name,
-      @required String email,
-      @required String dayOfBirth,
-      @required String id}) {
+  FirebaseUser.defaultUser({
+    @required String name,
+    @required String email,
+    @required String dayOfBirth,
+    @required String id,
+    @required String password,
+  }) {
     this._name = name;
     this._id = id;
     this._views = 0;
     this._loaded = 0;
     this._email = email;
+    this._password = password;
     this._dayOfBirth = dayOfBirth;
   }
 
-  FirebaseUser.fromData(Map<String, dynamic> data) {
+  FirebaseUser.fromData(Map<String, dynamic> data, String password) {
     this._name = data[AppUserStrings.name];
     this._email = data[AppUserStrings.email];
     this._views = data[AppUserStrings.views];
     this._loaded = data[AppUserStrings.loaded];
     this._id = data[AppUserStrings.id];
+    this._password = password;
     this._dayOfBirth = data[AppUserStrings.dayOfBirth];
   }
   Map<String, dynamic> toJson() {
@@ -71,5 +78,23 @@ class FirebaseUser implements User {
       docId: id,
       updateValue: this.toJson(),
     );
+  }
+
+  Future<bool> updateEmail(String newEmail) async {
+    try {
+      await FireAuth.updateEmail(newEmail, password);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> changePassword(String newPassword) async {
+    try {
+      await FireAuth.changePassword(password, newPassword);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

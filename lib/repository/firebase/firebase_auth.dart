@@ -11,7 +11,7 @@ class FireAuth {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      var user = await FireStore.getUser(userCredential.user.uid);
+      var user = await FireStore.getUser(userCredential.user.uid, password);
       return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -34,7 +34,11 @@ class FireAuth {
       UserCredential user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: oldPassword);
       fbUser.FirebaseUser firebaseUser = fbUser.FirebaseUser.defaultUser(
-          name: name, dayOfBirth: dayOfBirth, email: email, id: user.user.uid);
+          name: name,
+          dayOfBirth: dayOfBirth,
+          email: email,
+          id: user.user.uid,
+          password: oldPassword);
       return FireStore.addUser(user: firebaseUser);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -44,5 +48,41 @@ class FireAuth {
       } else if (e.code == "invalid-email ") throw InvalidEmail();
     }
     return null;
+  }
+
+  static Future<void> _reauth(String email, String password) async {
+    await FirebaseAuth.instance.currentUser.reauthenticateWithCredential(
+        EmailAuthProvider.credential(email: email, password: password));
+  }
+
+  static Future<void> updateEmail(String newEmail, String password) async {
+    var user = FirebaseAuth.instance.currentUser;
+    try {
+      user.updateEmail(newEmail);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        throw AlreadyRegistred();
+      } else if (e.code == "invalid-email ") {
+        throw InvalidEmail();
+      } else {
+        _reauth(user.email, password);
+        updateEmail(newEmail, password);
+      }
+    }
+  }
+
+  static Future<void> changePassword(
+      String oldPassword, String newPassword) async {
+    //Create an instance of the current user.
+    var user = FirebaseAuth.instance.currentUser;
+
+    try {
+      await user.updatePassword(newPassword);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        _reauth(user.email, oldPassword);
+        changePassword(oldPassword, newPassword);
+      }
+    }
   }
 }

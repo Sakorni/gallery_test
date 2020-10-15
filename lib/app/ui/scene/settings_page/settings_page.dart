@@ -31,6 +31,8 @@ class SettingsPage extends StatelessWidget {
   final confirmPwdNode = FocusNode();
   final confirmPwdController;
 
+  List<GlobalKey<FormState>> dataKeys;
+
   void dropFocus(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
   }
@@ -41,7 +43,14 @@ class SettingsPage extends StatelessWidget {
         emailController = TextEditingController(text: user.email),
         oldPwdController = TextEditingController(),
         newPwdController = TextEditingController(),
-        confirmPwdController = TextEditingController();
+        confirmPwdController = TextEditingController() {
+    dataKeys = [
+      nameKey,
+      bDayKey,
+      emailKey,
+      confirmPwdController,
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

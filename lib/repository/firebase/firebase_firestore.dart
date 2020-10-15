@@ -19,12 +19,12 @@ class FireStore {
     return user;
   }
 
-  static Future<FirebaseUser> getUser(String id) async {
+  static Future<FirebaseUser> getUser(String id, String password) async {
     DocumentReference doc =
         _instance.collection(AppCollectionsStrings.users).doc(id);
     DocumentSnapshot snapshot = await doc.get();
     Map<String, dynamic> data = snapshot.data();
-    return FirebaseUser.fromData(data);
+    return FirebaseUser.fromData(data, password);
   }
 
   static Future updatefield(

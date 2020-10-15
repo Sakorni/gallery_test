@@ -7,6 +7,7 @@ import 'package:gallery_test/app/ui/scene/home_page/bloc/pictures_bloc.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/list_of_pictures.dart';
 import 'package:gallery_test/app/ui/scene/navigation_page/bloc/repository_bloc.dart';
 import 'package:gallery_test/app/ui/scene/profile_page/widgets/circled_photo.dart';
+import 'package:gallery_test/app/ui/scene/settings_page/bloc/settings_bloc.dart';
 import 'package:gallery_test/app/ui/scene/settings_page/settings_page.dart';
 import 'package:gallery_test/data/gateway/user.dart';
 
@@ -50,7 +51,9 @@ class _ProfilePageState extends State<ProfilePage> {
             GestureDetector(
                 onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => SettingsPage(user),
+                        builder: (context) => BlocProvider(
+                            create: (context) => SettingsBloc(user),
+                            child: SettingsPage(user)),
                       ),
                     ),
                 child: Image.asset(

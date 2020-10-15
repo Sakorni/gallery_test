@@ -81,4 +81,3 @@ class FirebasePicture implements Picture {
         updateValue: values);
   }
 }
-//TODO: MaxLength 23

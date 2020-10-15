@@ -26,6 +26,7 @@ class AppStrings {
   static const nameHint = "Name";
   static const oldPassHint = "Old password";
   static const confirmPassHint = "Confirm password";
+  static const newPassHint = "New password";
   static const bDayHint = "Birthday";
   static const seatchHint = "Search";
 }

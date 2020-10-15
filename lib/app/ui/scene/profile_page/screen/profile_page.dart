@@ -6,6 +6,8 @@ import 'package:gallery_test/app/ui/scene/home_page/bloc/load_mode.dart';
 import 'package:gallery_test/app/ui/scene/home_page/bloc/pictures_bloc.dart';
 import 'package:gallery_test/app/ui/scene/home_page/widgets/list_of_pictures.dart';
 import 'package:gallery_test/app/ui/scene/navigation_page/bloc/repository_bloc.dart';
+import 'package:gallery_test/app/ui/scene/profile_page/widgets/circled_photo.dart';
+import 'package:gallery_test/app/ui/scene/settings_page/settings_page.dart';
 import 'package:gallery_test/data/gateway/user.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -46,7 +48,11 @@ class _ProfilePageState extends State<ProfilePage> {
           automaticallyImplyLeading: false,
           actions: [
             GestureDetector(
-                onTap: () => print("press"),
+                onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SettingsPage(user),
+                      ),
+                    ),
                 child: Image.asset(
                   AssetImagePath.settingsIcon,
                   scale: 1.5,
@@ -55,17 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: AppColors.mainGray),
-                    image: DecorationImage(
-                      image: AssetImage(NavBarIconAssetsPath.photo),
-                    ))),
-          ),
+          CircledPhoto(size: 100),
           SizedBox(height: 10),
           Text(
             user.name,

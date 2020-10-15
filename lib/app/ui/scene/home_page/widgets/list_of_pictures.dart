@@ -12,8 +12,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 // ignore: must_be_immutable
 class ListOfPhotoPage<Mode extends LoadMode> extends StatelessWidget {
-  ListOfPhotoPage();
-
+  int itemsInARow;
+  ListOfPhotoPage({this.itemsInARow = 2});
   final _refreshController = RefreshController();
 
   bool _reset = false;
@@ -63,7 +63,7 @@ class ListOfPhotoPage<Mode extends LoadMode> extends StatelessWidget {
       footer: ClassicFooter(),
       child: GridView.count(
         physics: ClampingScrollPhysics(),
-        crossAxisCount: 2,
+        crossAxisCount: itemsInARow,
         children: pictures
             .map((picture) =>
                 PictureWidget(picture, callback: () => _callBack(context)))

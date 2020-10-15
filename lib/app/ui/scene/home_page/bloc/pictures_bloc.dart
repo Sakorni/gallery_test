@@ -12,9 +12,10 @@ part 'pictures_state.dart';
 
 class PicturesBloc<Mode extends LoadMode>
     extends Bloc<PicturesEvent, PicturesState> {
-  PicturesBloc() : super(FirstLoadingPictures()) {
+  PicturesBloc({this.email}) : super(FirstLoadingPictures()) {
     this.add(LoadMorePictures());
   }
+  final String email;
 
   FireStore _firestore = FireStore();
   List<Picture> _pictures = [];
@@ -24,14 +25,26 @@ class PicturesBloc<Mode extends LoadMode>
     PicturesEvent event,
   ) async* {
     try {
-      if (event is LoadMorePictures) {
-        List<Picture> newPictures = await _firestore.getPictures<Mode>();
-        _pictures.insertAll(_pictures.length, newPictures);
-        yield PicturesScreenState(_pictures);
-      }
-      if (event is ResetPictures) {
-        _pictures = await _firestore.getPictures<Mode>(reset: true);
-        yield PicturesScreenState(_pictures);
+      if (Mode == UserMode) {
+        if (event is LoadMorePictures) {
+          List<Picture> newPictures = await _firestore.getUsersPictures(email);
+          _pictures.insertAll(_pictures.length, newPictures);
+          yield PicturesScreenState(_pictures);
+        }
+        if (event is ResetPictures) {
+          _pictures = await _firestore.getUsersPictures(email, reset: true);
+          yield PicturesScreenState(_pictures);
+        }
+      } else {
+        if (event is LoadMorePictures) {
+          List<Picture> newPictures = await _firestore.getPictures<Mode>();
+          _pictures.insertAll(_pictures.length, newPictures);
+          yield PicturesScreenState(_pictures);
+        }
+        if (event is ResetPictures) {
+          _pictures = await _firestore.getPictures<Mode>(reset: true);
+          yield PicturesScreenState(_pictures);
+        }
       }
     } catch (e) {
       if (e is SocketException || e is TimeoutException || e is HttpException) {

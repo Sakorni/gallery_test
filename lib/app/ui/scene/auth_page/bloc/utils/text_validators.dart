@@ -29,7 +29,7 @@ class TextValidators {
     if (value.length < 10) {
       throw FormatException();
     }
-    RegExp regex = RegExp(r"(\d{2})-(\d{2})-(\d{4})");
+    RegExp regex = RegExp(r"(\d{2}).(\d{2}).(\d{4})");
     Match match = regex.firstMatch(value);
     int day = int.parse(match.group(1));
     int month = int.parse(match.group(2));

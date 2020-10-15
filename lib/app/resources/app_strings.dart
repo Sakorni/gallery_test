@@ -49,6 +49,9 @@ class AppPictureStrings {
 }
 
 class AppUserStrings {
+  static const id = "Id";
+  static const views = "Views";
+  static const loaded = "Loaded";
   static const name = "Name";
   static const email = "Email";
   static const dayOfBirth = "DayOfBirth";

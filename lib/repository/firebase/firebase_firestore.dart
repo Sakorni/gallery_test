@@ -11,13 +11,10 @@ class FireStore {
   static const _LOADLIMIT = 10;
   DocumentSnapshot lastDocument;
 
-  static Future<FirebaseUser> addUser(
-      {String name, String dayOfBirth, String email, String id}) async {
-    FirebaseUser user =
-        FirebaseUser(name: name, dayOfBirth: dayOfBirth, email: email);
+  static Future<FirebaseUser> addUser({FirebaseUser user}) async {
     DocumentReference users = FirebaseFirestore.instance
         .collection(AppCollectionsStrings.users)
-        .doc(id);
+        .doc(user.id);
     await users.set(user.toJson());
     return user;
   }

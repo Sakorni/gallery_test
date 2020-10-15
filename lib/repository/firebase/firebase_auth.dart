@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../data/entity/firebase_user.dart' as user;
+import '../../data/entity/firebase_user.dart' as fbUser;
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/utils/errors.dart';
 
 import 'firebase_firestore.dart';
 
 class FireAuth {
-  static Future<user.FirebaseUser> signIn(
+  static Future<fbUser.FirebaseUser> signIn(
       {@required String email, @required String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -23,7 +23,7 @@ class FireAuth {
     return null;
   }
 
-  static Future<user.FirebaseUser> signUp(
+  static Future<fbUser.FirebaseUser> signUp(
       {@required String email,
       @required String oldPassword,
       @required String name,
@@ -33,11 +33,9 @@ class FireAuth {
     try {
       UserCredential user = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: oldPassword);
-      return FireStore.addUser(
-          name: name,
-          dayOfBirth: dayOfBirth ?? '',
-          email: email,
-          id: user.user.uid);
+      fbUser.FirebaseUser firebaseUser = fbUser.FirebaseUser.defaultUser(
+          name: name, dayOfBirth: dayOfBirth, email: email, id: user.user.uid);
+      return FireStore.addUser(user: firebaseUser);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw WeakPassword();

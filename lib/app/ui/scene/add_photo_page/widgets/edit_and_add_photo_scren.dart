@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/ui/custom_widgets/tag_field.dart';
+import 'package:gallery_test/app/ui/custom_widgets/while_loading.dart';
 import 'package:gallery_test/app/ui/scene/add_photo_page/widgets/empty_tag.dart';
 import 'package:gallery_test/app/ui/scene/add_photo_page/widgets/photo_text_field.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/utils/text_validators.dart';
@@ -35,17 +36,6 @@ class _EditAndAddPhotoScreenState extends State<EditAndAddPhotoScreen> {
 
   final List<String> tags = [];
 
-  buildShowDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        });
-  }
-
   void dropFocus(BuildContext context) {
     FocusScope.of(context).unfocus();
   }
@@ -67,7 +57,7 @@ class _EditAndAddPhotoScreenState extends State<EditAndAddPhotoScreen> {
   }
 
   void addPicture(BuildContext context) async {
-    buildShowDialog(context);
+    showCircularwhileLoading(context);
     if (TextValidators.allValidated([_nameKey, _descriptionKey])) {
       bool result = await FireStore.createImg(widget.pictureFile,
           author: widget.email,

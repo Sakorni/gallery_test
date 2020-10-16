@@ -93,6 +93,7 @@ class FirebaseUser implements User {
 
   Future<void> updateEmail(String newEmail) async {
     await FireAuth.updateEmail(newEmail, password);
+    FireStore.updateAuthor(newEmail, email);
     this._email = newEmail;
   }
 

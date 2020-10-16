@@ -35,6 +35,17 @@ class FireStore {
     await doc.delete();
   }
 
+  static Future<void> updateAuthor(String newAuthor, String oldAuthor) async {
+    QuerySnapshot pictures = await _instance
+        .collection(AppCollectionsStrings.images)
+        .where(AppPictureStrings.pictureAuthor, isEqualTo: oldAuthor)
+        .get();
+    pictures.docChanges.forEach((element) {
+      element.doc.reference
+          .update({AppPictureStrings.pictureAuthor: newAuthor});
+    });
+  }
+
   static Future updatefield(
       {String collection,
       String docId,

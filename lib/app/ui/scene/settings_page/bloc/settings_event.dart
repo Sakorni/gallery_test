@@ -3,26 +3,23 @@ part of 'settings_bloc.dart';
 @immutable
 abstract class SettingsEvent {}
 
-class UpdateDataField extends SettingsEvent {
-  Map<String, String> value;
+class UpdateField extends SettingsEvent {
+  Map<String, String> value = {};
+  final String email;
+  final String oldPassword;
+  final String newPassword;
+  final String confirmPassword;
 
-  UpdateDataField(String name, String dayOfBirth) {
+  UpdateField(
+      {@required String name,
+      @required String dayOfBirth,
+      @required this.email,
+      @required this.oldPassword,
+      @required this.newPassword,
+      @required this.confirmPassword}) {
     value[AppUserStrings.name] = name;
     value[AppUserStrings.dayOfBirth] = dayOfBirth;
   }
-}
-
-class UpdateEmail extends SettingsEvent {
-  final String email;
-
-  UpdateEmail(this.email);
-}
-
-class UpdatePassword extends SettingsEvent {
-  final String oldPassword;
-  final String newPassword;
-
-  UpdatePassword(this.oldPassword, this.newPassword);
 }
 
 class DeleteAccount extends SettingsEvent {}

@@ -19,20 +19,20 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsEvent event,
   ) async* {
     try {
-      if (event is UpdateDataField) {
-        yield SettingsProccess();
-        await user.updateFields(event.value);
-        yield SettingsInitial();
-      }
-      if (event is UpdateEmail) {
-        yield SettingsProccess();
-        await user.updateEmail(event.email);
-        yield SettingsInitial();
-      }
-      if (event is UpdatePassword) {
-        yield SettingsProccess();
-        await user.changePassword(event.oldPassword, event.newPassword);
-        yield SettingsInitial();
+      if (event is UpdateField) {
+        if (event.newPassword != event.confirmPassword)
+          yield SettingsError(AppStrings.notConfirmed);
+        else {
+          yield SettingsProccess();
+          await user.updateFields(event.value);
+          if (event.oldPassword.isNotEmpty && event.newPassword.isNotEmpty) {
+            await user.changePassword(event.oldPassword, event.newPassword);
+          }
+          if (event.email != user.email) {
+            await user.updateEmail(event.email);
+          }
+          yield SettingsInitial();
+        }
       }
       if (event is DeleteAccount) {
         yield SettingsProccess();

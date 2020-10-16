@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
+import 'package:gallery_test/app/ui/custom_widgets/error_snack_bar.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/bloc/auth_bloc.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/fields_screen.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/cancel_button.dart';
@@ -32,8 +33,7 @@ class AuthPage extends StatelessWidget {
           body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is AuthError) {
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.message)));
+                showErrorSnackBar(context, state.message);
               } else if (state is AuthSuccess) {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(

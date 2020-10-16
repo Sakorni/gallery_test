@@ -53,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       MaterialPageRoute(
                         builder: (context) => BlocProvider(
                             create: (context) => SettingsBloc(user),
-                            child: SettingsPage(user)),
+                            child: SettingsPage()),
                       ),
                     ),
                 child: Image.asset(

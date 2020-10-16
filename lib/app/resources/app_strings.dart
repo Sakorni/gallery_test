@@ -10,6 +10,7 @@ class AppStrings {
   static const weakPassword = "Password is too weak";
   static const onSocketException =
       "Problems with internet connection. Try again later";
+  static const invalidOldPassword = "Old password is not correct!";
   static const notConfirmed = "Passwords are should be equal!";
   static const invalidEmail = "Invalid email format!";
   static const welcome = "Welcome!";

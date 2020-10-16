@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
+import 'package:gallery_test/app/utils/errors.dart';
 import 'package:gallery_test/data/gateway/user.dart';
 import 'package:gallery_test/repository/firebase/firebase_auth.dart';
 import 'package:gallery_test/repository/firebase/firebase_firestore.dart';
@@ -80,21 +81,24 @@ class FirebaseUser implements User {
     );
   }
 
-  Future<bool> updateEmail(String newEmail) async {
-    try {
-      await FireAuth.updateEmail(newEmail, password);
-      return true;
-    } catch (e) {
-      return false;
-    }
+  Future<void> updateEmail(String newEmail) async {
+    await FireAuth.updateEmail(newEmail, password);
+    this._email = newEmail;
   }
 
-  Future<bool> changePassword(String newPassword) async {
-    try {
-      await FireAuth.changePassword(password, newPassword);
-      return true;
-    } catch (e) {
-      return false;
+  Future<void> changePassword(
+    String oldPassword,
+    String newPassword,
+  ) async {
+    if (oldPassword != password) {
+      throw InvalidOldPassword();
     }
+    await FireAuth.changePassword(password, newPassword);
+    this._password = newPassword;
+  }
+
+  Future<void> deleteUser() async {
+    await FireAuth.deleteUser(email, password);
+    await FireStore.deleteUser(id);
   }
 }

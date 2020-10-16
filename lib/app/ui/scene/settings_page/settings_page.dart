@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gallery_test/app/resources/app_colors.dart';
 import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/app/ui/scene/auth_page/widget/text_input_field.dart';
 import 'package:gallery_test/app/ui/scene/profile_page/widgets/circled_photo.dart';
+import 'package:gallery_test/app/ui/scene/settings_page/bloc/settings_bloc.dart';
 import 'package:gallery_test/data/entity/firebase_user.dart';
 
 class SettingsPage extends StatelessWidget {
-  final FirebaseUser user;
   final nameKey = GlobalKey<FormState>();
   final nameNode = FocusNode();
-  final nameController;
+  TextEditingController nameController;
 
   final bDayKey = GlobalKey<FormState>();
   final bDayNode = FocusNode();
-  final bDayController;
+  TextEditingController bDayController;
 
   final emailKey = GlobalKey<FormState>();
   final emailNode = FocusNode();
-  final emailController;
+  TextEditingController emailController;
 
   final oldPwdKey = GlobalKey<FormState>();
   final oldPwdNode = FocusNode();
-  final oldPwdController;
+  TextEditingController oldPwdController;
 
   final newPwdKey = GlobalKey<FormState>();
   final newPwdNode = FocusNode();
-  final newPwdController;
+  TextEditingController newPwdController;
 
   final confirmPwdKey = GlobalKey<FormState>();
   final confirmPwdNode = FocusNode();
-  final confirmPwdController;
+  TextEditingController confirmPwdController;
 
   List<GlobalKey<FormState>> dataKeys;
 
@@ -37,23 +38,23 @@ class SettingsPage extends StatelessWidget {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  SettingsPage(this.user)
-      : nameController = TextEditingController(text: user.name),
-        bDayController = TextEditingController(text: user.dayOfBirth),
-        emailController = TextEditingController(text: user.email),
-        oldPwdController = TextEditingController(),
-        newPwdController = TextEditingController(),
-        confirmPwdController = TextEditingController() {
+  SettingsPage() {
     dataKeys = [
       nameKey,
       bDayKey,
       emailKey,
-      confirmPwdController,
     ];
   }
 
   @override
   Widget build(BuildContext context) {
+    FirebaseUser user = BlocProvider.of<SettingsBloc>(context).user;
+    nameController = TextEditingController(text: user.name);
+    bDayController = TextEditingController(text: user.dayOfBirth);
+    emailController = TextEditingController(text: user.email);
+    oldPwdController = TextEditingController();
+    newPwdController = TextEditingController();
+    confirmPwdController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

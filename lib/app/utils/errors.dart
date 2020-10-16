@@ -33,3 +33,8 @@ class InvalidEmail implements AuthException {
   @override
   String message = AppStrings.invalidEmail;
 }
+
+class InvalidOldPassword implements AuthException {
+  @override
+  String message = AppStrings.invalidOldPassword;
+}

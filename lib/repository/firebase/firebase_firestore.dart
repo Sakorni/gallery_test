@@ -27,6 +27,14 @@ class FireStore {
     return FirebaseUser.fromData(data, password);
   }
 
+  static Future<void> deleteUser(
+    String id,
+  ) async {
+    DocumentReference doc =
+        _instance.collection(AppCollectionsStrings.users).doc(id);
+    await doc.delete();
+  }
+
   static Future updatefield(
       {String collection,
       String docId,

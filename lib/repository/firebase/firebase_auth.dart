@@ -79,9 +79,27 @@ class FireAuth {
     try {
       await user.updatePassword(newPassword);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'requires-recent-login') {
+      if (e.code == 'weak-password') {
+        throw WeakPassword();
+      } else if (e.code == 'requires-recent-login') {
         _reauth(user.email, oldPassword);
         changePassword(oldPassword, newPassword);
+      }
+    }
+  }
+
+  static Future<void> deleteUser(String newEmail, String password) async {
+    var user = FirebaseAuth.instance.currentUser;
+    try {
+      user.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        throw AlreadyRegistred();
+      } else if (e.code == "invalid-email ") {
+        throw InvalidEmail();
+      } else {
+        _reauth(user.email, password);
+        updateEmail(newEmail, password);
       }
     }
   }

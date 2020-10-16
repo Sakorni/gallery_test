@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:gallery_test/app/resources/app_strings.dart';
 import 'package:gallery_test/data/entity/firebase_user.dart';
 import 'package:meta/meta.dart';
 

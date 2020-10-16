@@ -73,11 +73,21 @@ class FirebaseUser implements User {
         updateValue: {AppUserStrings.loaded: loaded});
   }
 
-  Future<void> update() {
+  Future<void> fullUpdate() {
     return FireStore.updatefield(
       collection: AppCollectionsStrings.users,
       docId: id,
       updateValue: this.toJson(),
+    );
+  }
+
+  Future<void> updateFields(Map<String, dynamic> value) {
+    this._name = value[AppUserStrings.name];
+    this._dayOfBirth = value[AppUserStrings.dayOfBirth];
+    return FireStore.updatefield(
+      collection: AppCollectionsStrings.users,
+      docId: id,
+      updateValue: value,
     );
   }
 

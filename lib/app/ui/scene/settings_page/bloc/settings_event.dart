@@ -4,12 +4,12 @@ part of 'settings_bloc.dart';
 abstract class SettingsEvent {}
 
 class UpdateDataField extends SettingsEvent {
-  final String field;
-  final String value;
+  Map<String, String> value;
 
-  UpdateDataField.nameField(this.value) : field = AppUserStrings.name;
-  UpdateDataField.dayOfBirthField(this.value)
-      : field = AppUserStrings.dayOfBirth;
+  UpdateDataField(String name, String dayOfBirth) {
+    value[AppUserStrings.name] = name;
+    value[AppUserStrings.dayOfBirth] = dayOfBirth;
+  }
 }
 
 class UpdateEmail extends SettingsEvent {

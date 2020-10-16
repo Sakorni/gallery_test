@@ -15,3 +15,5 @@ class SettingsError extends SettingsState {
 }
 
 class SettingsPopToWelcomeScreen extends SettingsState {}
+
+class SettingsProccess extends SettingsState {}
